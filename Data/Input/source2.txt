@@ -1,0 +1,17 @@
+# This file contains the variables related to the source
+# location of the wave source
+# source wave properties
+# lambda_s = c0 / (f * 10 ** 6)  # The wavelength of the source
+# kx = complex(1.0e-6, 0.0)   #N-S wavenumber
+# ky = -1*complex(1.0e-7, 0.0)  #E-W wavenumber
+
+# x y z = source location in cartesian coordinates (km)
+# A_s = source amplitude (W/m2)
+# theta_s = the phase of the source
+# f # The frequency of the source (MHz)
+
+#           x           y           z     A_s  theta_s          f
+#
+        5.000      10.000     200.000       1        0      5.100   # source 1
+      -15.000      10.000     200.000       1        0      5.100   # source 2
+%

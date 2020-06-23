@@ -1,0 +1,35 @@
+#
+# pointtype 0 = conduit junction = light green
+# pointtype 1 = antenna tower = light blue
+# pointtype 2 = survey point = dark yellow
+# pointtype 3 = reference point = light yellow
+# pointtype 4 = metal point = light gray
+# pointtype 5 = vertical metal point = dark gray
+# pointtype -1 or anything else = other = light red
+#
+# junctions and towers are connected by trenches 
+# trenches contain conduits which in turn contain cables 
+#
+# trench number 0 or < 0 indicates no trench 
+# this could be used for cables connected outside of a trench to a tower 
+# so there would be a cable length but no trench or trench length 
+#
+# point types > 1 have no connections between them
+#
+# column number
+#     1         2        3   4               5   6     7        8  9                                        10   11         12
+#
+#     x         y      fix   weight     npoint   type  z   ntrench path                         trenchcableadj   preah  antang  # layout format 4
+#     0.000     0.000   -1   0.000000        0   3     0.000    0  []                                        0   5.500   360.0  # origin 
+#
+#     x         y      fix   weight     npoint   type  z   ntrench path                         trenchcableadj  # layout format 3 
+#     0.000     0.000   -1   0.000000        0   3     0.000    0  []                                        0  # origin 
+#
+    184.608   168.570   -1   0.000000        0   3     0.000    0  [0]                                       0  # cable origin
+#
+# right triangle 50-m orthogonal baselines
+     50.000    50.000    1   1.000000        1   1     0.000    0  [0,1]                                     0  # 
+     50.000   100.000    1   1.000000        2   1     0.000    0  [0,2]                                     0  # 
+    109.000    50.000    1   1.000000        3   1     0.000    0  [0,3]                                     0  # 
+#
+
