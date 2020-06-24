@@ -1,0 +1,183 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>multi_source_receieved_waves &#8212; EM wave propagation for antenna 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for multi_source_receieved_waves</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">multi_source</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">visualization</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="c1"># import tkinter as tk</span>
+<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">Tk</span>
+<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">filedialog</span>
+
+<div class="viewcode-block" id="select_directory"><a class="viewcode-back" href="../multi_source_receieved_waves.html#multi_source_receieved_waves.select_directory">[docs]</a><span class="k">def</span> <span class="nf">select_directory</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This function, opens a window and asks the user to choose the folder that contains the files</span>
+
+<span class="sd">    :return: the path of the input data</span>
+<span class="sd">    :rtype:str</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="c1"># You can choose the directory of the input data</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">Tk</span><span class="p">()</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s1">&#39;200x150&#39;</span><span class="p">)</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">withdraw</span><span class="p">()</span>
+    <span class="n">input_dir</span> <span class="o">=</span> <span class="n">filedialog</span><span class="o">.</span><span class="n">askdirectory</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="n">root</span><span class="p">,</span>
+                                        <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Choose the directory of the data&#39;</span><span class="p">,</span>
+                                        <span class="n">initialdir</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span>
+                                        <span class="n">mustexist</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span>
+
+    <span class="c1"># root.mainloop()</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">input_dir</span></div>
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../multi_source_receieved_waves.html#multi_source_receieved_waves.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    The main code to run other modules and plot the graphics.</span>
+
+<span class="sd">    :return: None</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="c1">#You can select the data folder</span>
+    <span class="n">input_dir</span> <span class="o">=</span> <span class="n">select_directory</span><span class="p">()</span>
+    <span class="c1"># or you can type it in here directly</span>
+    <span class="c1"># input_dir = &quot;../IonosphereObservation/Data/Input/&quot;</span>
+
+    <span class="c1"># file name of the antenna</span>
+    <span class="n">fnr</span> <span class="o">=</span> <span class="n">input_dir</span><span class="o">+</span><span class="s1">&#39;03-tri50_2.txt&#39;</span>
+    <span class="c1"># file name of the source</span>
+    <span class="n">fns</span> <span class="o">=</span> <span class="n">input_dir</span><span class="o">+</span><span class="s1">&#39;source2.txt&#39;</span>
+
+    <span class="c1">#to call the class</span>
+    <span class="n">ms</span> <span class="o">=</span> <span class="n">multi_source</span><span class="p">(</span><span class="n">radar_fn</span><span class="o">=</span><span class="n">fnr</span><span class="p">,</span><span class="n">source_fn</span><span class="o">=</span><span class="n">fns</span><span class="p">)</span>
+
+    <span class="c1">#Visulization part</span>
+    <span class="n">vis</span> <span class="o">=</span> <span class="n">visualization</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">ms</span><span class="o">.</span><span class="n">antenna_location</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">ms</span><span class="o">.</span><span class="n">source_location</span><span class="p">)</span>
+    <span class="c1"># To obtain the location of the antenna and source and plot them</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[1;31m Please check the plot window.</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">vis</span><span class="o">.</span><span class="n">source_antenna_location</span><span class="p">()</span>
+
+    <span class="c1"># To obtain waves at the antenna</span>
+    <span class="n">_</span><span class="p">,</span><span class="n">w</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">antennna_wave_received</span><span class="p">()</span>
+    <span class="n">waves</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">vector_superposition</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+
+
+    <span class="c1"># To obtain the phase difference at the antenna</span>
+    <span class="n">phase_difference</span> <span class="o">=</span>  <span class="n">ms</span><span class="o">.</span><span class="n">phase_diff</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Phase difference in degree:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">phase_difference</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+
+    <span class="n">voltage</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">voltage</span><span class="p">()</span>
+
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">)</span>
+
+    <span class="k">pass</span></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">EM wave propagation for antenna</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../info.html">Project overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">Main code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Module codes</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Leila Norouzi.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

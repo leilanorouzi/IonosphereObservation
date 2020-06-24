@@ -1,0 +1,7 @@
+multi\_source\_receieved\_waves module
+======================================
+
+.. automodule:: multi_source_receieved_waves
+   :members:
+   :undoc-members:
+   :show-inheritance:

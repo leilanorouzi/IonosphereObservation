@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Project overview &#8212; EM wave propagation for antenna 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Main code" href="main.html" />
+    <link rel="prev" title="Ionosphere observation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="project-overview">
+<h1>Project overview<a class="headerlink" href="#project-overview" title="Permalink to this headline">¶</a></h1>
+<p>The project is design to prob the antenna system.</p>
+<div class="section" id="stage-1">
+<h2>Stage 1<a class="headerlink" href="#stage-1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="problem-statement">
+<h3>Problem statement<a class="headerlink" href="#problem-statement" title="Permalink to this headline">¶</a></h3>
+<p>We can start with a fairly simple case of just one point of emission in the ionosphere, at a certain altitude and location, and three antennas on the ground.
+Using that data we should then be able to go backwards and find the position of the source.  If we assume the source is at infinity, we can calculate the direction from the phase alone.  If we use the amplitude data we should also be able to find its distance, although I don’t think that will be possible in real life due to the lack of enough sig figs in the amplitude measurement.  But we could find out how many sig figs would be needed.</p>
+<p>This test data can be used to test simple data analysis.  With one source the time series at an antenna should be a 5.1-MHz sine wave with a corresponding frequency spectrum.  With two sources at 5.1 MHz we should see a change in amplitude and phase depending on the phase difference.  With two sources at close but different frequencies we should see two lines in the spectrum and beating in the time series.
+Polarization can be added to the sources and we can test polarization analysis.
+The frequency band can be filtered, the time samples could be integrated, and the source emission can be limited in time as if it were a radar reflection.  And so on.
+With things like these applied to all sources and all antennas we can do many tests of radio and radar imaging.</p>
+<p>The information about the antenna and source are stored in two txt files. These files can be loaded using <code class="file docutils literal notranslate"><span class="pre">reading_files.py</span></code>.</p>
+</div>
+<div class="section" id="assumptions">
+<h3>Assumptions<a class="headerlink" href="#assumptions" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>A transverse plane wave</p></li>
+</ul>
+<div class="section" id="medium">
+<h4>Medium<a class="headerlink" href="#medium" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>Free space: homogeneous isotropic non-attenuating medium</p></li>
+<li><p>No background electric and magnetic fields.</p></li>
+<li><p>No scattering or absorption</p></li>
+<li><p>Homogeneous electromagnetic wave equation</p></li>
+</ul>
+</div>
+<div class="section" id="antenna">
+<h4>Antenna<a class="headerlink" href="#antenna" title="Permalink to this headline">¶</a></h4>
+<p>The antennas, in an L shape with 50-m legs and 3.8 m arms, at the cartesian coordinates <span class="math notranslate nohighlight">\((x,y,z)\)</span> as follow:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp;a_1 = (50,50,0),\\
+&amp;a_2 = (50,100,0) \text{  and} \\
+&amp;a_3 = (100,50,0)\end{split}\]</div>
+<p>Please look at the figure:</p>
+<div class="figure align-right">
+<a class="reference external image-reference" href="OriginalDocuments/referenceFrame.png"><img alt="The location of the sources and the antenna" src="_images/referenceFrame0.png" /></a>
+</div>
+<p>The origin is <span class="math notranslate nohighlight">\((0,0,0)\)</span>, so the antennas are pretty close to the origin.
+It’s convenient that they are at positive offsets, because as we add more antennas it gets more confusing if there are also negative offsets.</p>
+<p>Antenna data, the position of the antenna, will be loaded from a txt
+<a class="reference external" href="../Data/Input/03-tri50_2.txt">file</a> .</p>
+</div>
+<div class="section" id="sources">
+<h4>Sources<a class="headerlink" href="#sources" title="Permalink to this headline">¶</a></h4>
+<p>To begin with the source could for example be at
+<span class="math notranslate nohighlight">\(s = (5000,10000,200000)\)</span> in meters i.e. <span class="math notranslate nohighlight">\(x = +5\)</span> km, <span class="math notranslate nohighlight">\(y = +10\)</span> km, and <span class="math notranslate nohighlight">\(z = 200\)</span> km.</p>
+<p>We can say the source amplitude is <span class="math notranslate nohighlight">\(A_s = 1\)</span> and constant, and the source phase <span class="math notranslate nohighlight">\(\theta_s = 0\)</span> at <span class="math notranslate nohighlight">\(t = 0\)</span>.
+To know the phase vs time we need to know the emission frequency.  We could start with 5.1 MHz.</p>
+<p>So we are starting with a single point of emission, somewhere in the ionosphere, and three antennas, and we want to calculate the amplitude and relative phase at each antenna.
+Then we can expand to two emission points, with different locations and amplitudes, and more antennas.  For the total signal at each antenna, the signals from each emission point would be summed as complex numbers.  With multiple sources and multiple antennas we can use this computed data as a test input to the imaging algorithm.</p>
+<p>The information of the source/s, will be loaded from a txt
+<a class="reference external" href="../Data/Input/source2.txt">file</a> .
+The file may have a single row of information, indicating single source or multiple rows for multi-source situation.</p>
+</div>
+</div>
+<div class="section" id="solution">
+<h3>Solution<a class="headerlink" href="#solution" title="Permalink to this headline">¶</a></h3>
+<p>The wave propagate as a plane wave in a free space. Therefore, the wave form considered in a complex format with exponential part as following:</p>
+<div class="math notranslate nohighlight" id="equation-eq-wave-form">
+<span class="eqno">(1)<a class="headerlink" href="#equation-eq-wave-form" title="Permalink to this equation">¶</a></span>\[\mathbf{E}(\mathbf{r},t)= \mathbf{E_0}\Re \left\{ e^{i(\mathbf{k}\cdot\mathbf{r}-\omega t )}\right\}\]</div>
+<p>where r is the vector of propagation path, <span class="math notranslate nohighlight">\(\mathbf{E_0}\)</span> is the vector of electric field amplitude, <span class="math notranslate nohighlight">\(\mathbf{k}\)</span> is the vector of wavenumber and <span class="math notranslate nohighlight">\(\mathbf{\omega}\)</span> is angular frequency. The electric and magnetic fields are pepedicular to each other and perpendicular to the wave propagation direction.
+Please look at the picture.</p>
+<a class="reference external image-reference" href="https://upload.wikimedia.org/wikipedia/commons/9/99/EM-Wave.gif"><img alt="_images/EM-Wave.gif" class="align-right" src="_images/EM-Wave.gif" style="width: 250px; height: 250px;" /></a>
+<p>Therefore, the wave considered as propagating at z direction. The amplitude of electromagnetic fields are [Ex,Ey,0] and  [Bx,By,0] and the wavenumber is [0,0,Kz].
+For free space, the path, r, is a straight line from the source to the antenna. To make is simple, the r assumed to be at the direction of a new reference frame shown in the following picture. For each couple of source-antenna this reference frame will be adjusted. Finally, by rotating back this reference frame to the original reference frame the superposition of fields cab be obtained at every antenna for all sources.</p>
+<p>To calculate the wave:</p>
+<ol class="arabic simple">
+<li><p>For every source the waveform calculated for every antenna at the rotated frame of source-antenna.</p></li>
+<li><p>For every antenna, the superposition of all waves coming from every source obtained by calculating the projection of other wave vectors on one of them.</p></li>
+</ol>
+<div class="section" id="local-intensity">
+<h4>Local intensity<a class="headerlink" href="#local-intensity" title="Permalink to this headline">¶</a></h4>
+<div class="math notranslate nohighlight">
+\[I= \frac{ c n \epsilon_0}{2}\quad|E|^2\]</div>
+<p>where <span class="math notranslate nohighlight">\(E\)</span> is the complex electric filed.</p>
+</div>
+<div class="section" id="voltage">
+<h4>Voltage<a class="headerlink" href="#voltage" title="Permalink to this headline">¶</a></h4>
+<p>The voltage can be obtained from:</p>
+<div class="math notranslate nohighlight" id="equation-eq-voltage">
+<span class="eqno">(2)<a class="headerlink" href="#equation-eq-voltage" title="Permalink to this equation">¶</a></span>\[V = - \int_{x_A}^{x_B} \mathbf{ E}.d\mathbf{l}\]</div>
+<p>where <span class="math notranslate nohighlight">\(l\)</span> is the length.</p>
+</div>
+<div class="section" id="polarization">
+<h4><a class="reference external" href="https://www.wikipedia.org/wiki/Polarization_(waves)">Polarization</a><a class="headerlink" href="#polarization" title="Permalink to this headline">¶</a></h4>
+<a class="reference internal image-reference" href="_images/Linear_polarization_schematic.png"><img alt="_images/Linear_polarization_schematic.png" class="align-right" src="_images/Linear_polarization_schematic.png" style="width: 100px; height: 250px;" /></a>
+<p>The “polarization” of electromagnetic waves refers to the direction of the field. The polarization can be calculated by Jones vector.</p>
+<div class="math notranslate nohighlight" id="equation-eq-polarization">
+<span class="eqno">(3)<a class="headerlink" href="#equation-eq-polarization" title="Permalink to this equation">¶</a></span>\[\mathbf{E}(\mathbf{r},t)= \mathbf{E_0}\Re \left\{|\Psi\rangle \ e^{i(\mathbf{k}\cdot\mathbf{r}-\omega t )}\right\}\]</div>
+<div class="math notranslate nohighlight" id="equation-eq-jones-vector">
+<span class="eqno">(4)<a class="headerlink" href="#equation-eq-jones-vector" title="Permalink to this equation">¶</a></span>\[|\Psi\rangle =e^{i \alpha}\]</div>
+<p>where the <span class="math notranslate nohighlight">\(\Psi\)</span> is the jones vector and <span class="math notranslate nohighlight">\(\alpha\)</span> is phase angles <span class="math notranslate nohighlight">\(\alpha_x\)</span> , <span class="math notranslate nohighlight">\(\alpha_y\)</span>.
+In linear polarization, the fields oscillate in a single direction and phase angles are are equal but the magnitude of the amplitude components are changing. In circular or elliptical polarization, the fields rotate at a constant rate in a plane as the wave travels.</p>
+<a class="reference internal image-reference" href="_images/Rising_circular.gif"><img alt="_images/Rising_circular.gif" class="align-right" src="_images/Rising_circular.gif" style="width: 200px; height: 250px;" /></a>
+</div>
+</div>
+<div class="section" id="code">
+<h3>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="file-description">
+<h4>File description<a class="headerlink" href="#file-description" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p><strong>reading_files.py</strong>: This file contains a program that takes file names of antenna and source information (03-tri-2.txt and source2.txt) and returns the information in a DataFarme format to be used in the main program.</p></li>
+<li><p><strong>03-tri_2.txt</strong>: antenna information</p></li>
+<li><p><strong>source2.txt</strong>: source information</p></li>
+<li><p><strong>parameters.py</strong>: This file contains some parameters</p></li>
+<li><p><strong>multi_source</strong>: Contains the main class and function to calculate the results for the waves received at the location of antenna from the source/s.</p></li>
+<li><p><strong>multi_source_received_waves</strong>: The main program file.</p></li>
+<li><p><strong>visualization</strong>: Include codes for plotting and visualization purposes.</p></li>
+</ul>
+</div>
+<div class="section" id="how-to-run">
+<h4>How to run?<a class="headerlink" href="#how-to-run" title="Permalink to this headline">¶</a></h4>
+<p>Please copy and past all files (mentioned in the file description) to a directory. Then, in that directory, you can run the main program by typing <cite>python multi_source_receieved_waves.py</cite>.</p>
+</div>
+</div>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="http://sites.science.oregonstate.edu/~hadlekat/COURSES/ph212/superposition/phase_difference.html">The source for phase difference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/vslobody/MUSIC">Music Algorithem</a></p></li>
+<li><p><a class="reference external" href="https://www.qsl.net/zl1bpu/IONO/iono101.htm">Chapman model</a></p></li>
+<li><p><a class="reference external" href="https://github.com/protoplanet/raytracing/tree/master/HASELGROVE1957">Haselgrove Model</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Wave_equation">Wave equation</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Electric_field">Electric field</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Dipole_antenna">Dipole antenna</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Poynting_vector">Poynting vector</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Electromagnetic_wave_equation">Electromagnetic wave equation</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Attenuation">Attenuation</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Voltage">voltage</a></p></li>
+<li><p><a class="reference external" href="https://en.m.wikipedia.org/wiki/Polarization_(waves)">EM wave polarization</a></p></li>
+</ol>
+<div class="section" id="images">
+<h3>Images<a class="headerlink" href="#images" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://upload.wikimedia.org/wikipedia/commons/9/99/EM-Wave.gif">EM waves</a></p></li>
+<li><p><a class="reference external" href="https://upload.wikimedia.org/wikipedia/commons/2/2e/Linear_polarization_schematic.png">Linear Polarization</a></p></li>
+<li><p><a class="reference external" href="https://upload.wikimedia.org/wikipedia/commons/4/41/Rising_circular.gif">Circular polarization</a></p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">EM wave propagation for antenna</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Project overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#stage-1">Stage 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="main.html">Main code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Module codes</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Ionosphere observation</a></li>
+      <li>Next: <a href="main.html" title="next chapter">Main code</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Leila Norouzi.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/info.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

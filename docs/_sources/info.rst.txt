@@ -1,0 +1,197 @@
+
+Project overview
+================
+The project is design to prob the antenna system.
+
+
+Stage 1
+*******
+
+Problem statement
++++++++++++++++++
+
+We can start with a fairly simple case of just one point of emission in the ionosphere, at a certain altitude and location, and three antennas on the ground.
+Using that data we should then be able to go backwards and find the position of the source.  If we assume the source is at infinity, we can calculate the direction from the phase alone.  If we use the amplitude data we should also be able to find its distance, although I don't think that will be possible in real life due to the lack of enough sig figs in the amplitude measurement.  But we could find out how many sig figs would be needed.
+
+This test data can be used to test simple data analysis.  With one source the time series at an antenna should be a 5.1-MHz sine wave with a corresponding frequency spectrum.  With two sources at 5.1 MHz we should see a change in amplitude and phase depending on the phase difference.  With two sources at close but different frequencies we should see two lines in the spectrum and beating in the time series.
+Polarization can be added to the sources and we can test polarization analysis.
+The frequency band can be filtered, the time samples could be integrated, and the source emission can be limited in time as if it were a radar reflection.  And so on.
+With things like these applied to all sources and all antennas we can do many tests of radio and radar imaging.
+
+
+The information about the antenna and source are stored in two txt files. These files can be loaded using :file:`reading_files.py`.
+
+
+Assumptions
++++++++++++
+
+- A transverse plane wave
+
+Medium
+______
+
+- Free space: homogeneous isotropic non-attenuating medium
+- No background electric and magnetic fields.
+- No scattering or absorption
+- Homogeneous electromagnetic wave equation
+
+Antenna
+_______
+
+The antennas, in an L shape with 50-m legs and 3.8 m arms, at the cartesian coordinates :math:`(x,y,z)` as follow:
+
+
+.. math::
+   &a_1 = (50,50,0),\\
+   &a_2 = (50,100,0) \text{  and} \\
+   &a_3 = (100,50,0)
+
+Please look at the figure:
+
+.. figure:: _static/referenceFrame0.png
+    :align: right
+    :alt: The location of the sources and the antenna
+    :target: OriginalDocuments/referenceFrame.png
+
+
+
+The origin is :math:`(0,0,0)`, so the antennas are pretty close to the origin.
+It's convenient that they are at positive offsets, because as we add more antennas it gets more confusing if there are also negative offsets.
+
+Antenna data, the position of the antenna, will be loaded from a txt
+`file <../Data/Input/03-tri50_2.txt>`_ .
+
+
+Sources
+_______
+To begin with the source could for example be at
+:math:`s = (5000,10000,200000)` in meters i.e. :math:`x = +5` km, :math:`y = +10` km, and :math:`z = 200` km.
+
+We can say the source amplitude is :math:`A_s = 1` and constant, and the source phase :math:`\theta_s = 0` at :math:`t = 0`.
+To know the phase vs time we need to know the emission frequency.  We could start with 5.1 MHz.
+
+
+So we are starting with a single point of emission, somewhere in the ionosphere, and three antennas, and we want to calculate the amplitude and relative phase at each antenna.
+Then we can expand to two emission points, with different locations and amplitudes, and more antennas.  For the total signal at each antenna, the signals from each emission point would be summed as complex numbers.  With multiple sources and multiple antennas we can use this computed data as a test input to the imaging algorithm.
+
+The information of the source/s, will be loaded from a txt
+`file <../Data/Input/source2.txt>`_ .
+The file may have a single row of information, indicating single source or multiple rows for multi-source situation.
+
+
+
+
+
+Solution
+++++++++
+
+The wave propagate as a plane wave in a free space. Therefore, the wave form considered in a complex format with exponential part as following:
+
+.. math::
+  \mathbf{E}(\mathbf{r},t)= \mathbf{E_0}\Re \left\{ e^{i(\mathbf{k}\cdot\mathbf{r}-\omega t )}\right\}
+  :label: eq:wave_form
+
+
+where r is the vector of propagation path, :math:`\mathbf{E_0}` is the vector of electric field amplitude, :math:`\mathbf{k}` is the vector of wavenumber and :math:`\mathbf{\omega}` is angular frequency. The electric and magnetic fields are pepedicular to each other and perpendicular to the wave propagation direction.
+Please look at the picture.
+
+.. image:: _static/EM-Wave.gif
+      :align: right
+      :height: 250
+      :width: 250
+      :target: https://upload.wikimedia.org/wikipedia/commons/9/99/EM-Wave.gif
+
+Therefore, the wave considered as propagating at z direction. The amplitude of electromagnetic fields are [Ex,Ey,0] and  [Bx,By,0] and the wavenumber is [0,0,Kz].
+For free space, the path, r, is a straight line from the source to the antenna. To make is simple, the r assumed to be at the direction of a new reference frame shown in the following picture. For each couple of source-antenna this reference frame will be adjusted. Finally, by rotating back this reference frame to the original reference frame the superposition of fields cab be obtained at every antenna for all sources.
+
+
+
+To calculate the wave:
+
+1. For every source the waveform calculated for every antenna at the rotated frame of source-antenna.
+2. For every antenna, the superposition of all waves coming from every source obtained by calculating the projection of other wave vectors on one of them.
+
+Local intensity
+_______________
+
+.. math:: I= \frac{ c n \epsilon_0}{2}\quad|E|^2
+
+where :math:`E` is the complex electric filed.
+
+Voltage
+_______
+The voltage can be obtained from:
+
+.. math:: V = - \int_{x_A}^{x_B} \mathbf{ E}.d\mathbf{l}
+    :label: eq:voltage
+
+where :math:`l` is the length.
+
+Polarization_
+_____________
+.. _Polarization: https://www.wikipedia.org/wiki/Polarization_(waves)
+
+.. image:: _static/Linear_polarization_schematic.png
+    :align: right
+    :height: 250
+    :width: 100
+
+The "polarization" of electromagnetic waves refers to the direction of the field. The polarization can be calculated by Jones vector.
+
+
+.. math:: \mathbf{E}(\mathbf{r},t)= \mathbf{E_0}\Re \left\{|\Psi\rangle \ e^{i(\mathbf{k}\cdot\mathbf{r}-\omega t )}\right\}
+  :label: eq:polarization
+
+.. math:: |\Psi\rangle =e^{i \alpha}
+  :label: eq:jones_vector
+
+where the :math:`\Psi` is the jones vector and :math:`\alpha` is phase angles :math:`\alpha_x` , :math:`\alpha_y`.
+In linear polarization, the fields oscillate in a single direction and phase angles are are equal but the magnitude of the amplitude components are changing. In circular or elliptical polarization, the fields rotate at a constant rate in a plane as the wave travels.
+
+.. Image:: _static/Rising_circular.gif
+    :align: right
+    :height: 250
+    :width: 200
+
+Code
+++++
+
+File description
+________________
+- **reading_files.py**: This file contains a program that takes file names of antenna and source information (03-tri-2.txt and source2.txt) and returns the information in a DataFarme format to be used in the main program.
+- **03-tri_2.txt**: antenna information
+- **source2.txt**: source information
+- **parameters.py**: This file contains some parameters
+- **multi_source**: Contains the main class and function to calculate the results for the waves received at the location of antenna from the source/s.
+- **multi_source_received_waves**: The main program file.
+- **visualization**: Include codes for plotting and visualization purposes.
+
+How to run?
+___________
+Please copy and past all files (mentioned in the file description) to a directory. Then, in that directory, you can run the main program by typing `python multi_source_receieved_waves.py`.
+
+
+
+
+References
+**********
+1. `The source for phase difference <http://sites.science.oregonstate.edu/~hadlekat/COURSES/ph212/superposition/phase_difference.html>`_
+2. `Music Algorithem <https://github.com/vslobody/MUSIC>`_
+3. `Chapman model <https://www.qsl.net/zl1bpu/IONO/iono101.htm>`_
+4. `Haselgrove Model <https://github.com/protoplanet/raytracing/tree/master/HASELGROVE1957>`_
+5. `Wave equation <https://en.wikipedia.org/wiki/Wave_equation>`_
+6. `Electric field <https://en.wikipedia.org/wiki/Electric_field>`_
+7. `Dipole antenna <https://en.wikipedia.org/wiki/Dipole_antenna>`_
+8. `Poynting vector <https://en.wikipedia.org/wiki/Poynting_vector>`_
+9. `Electromagnetic wave equation <https://en.wikipedia.org/wiki/Electromagnetic_wave_equation>`_
+10. `Attenuation <https://en.wikipedia.org/wiki/Attenuation>`_
+11. `voltage <https://en.wikipedia.org/wiki/Voltage>`_
+12. `EM wave polarization <https://en.m.wikipedia.org/wiki/Polarization_(waves)>`_
+
+
+Images
+++++++
+
+- `EM waves   <https://upload.wikimedia.org/wikipedia/commons/9/99/EM-Wave.gif>`_
+- `Linear Polarization <https://upload.wikimedia.org/wikipedia/commons/2/2e/Linear_polarization_schematic.png>`_
+- `Circular polarization <https://upload.wikimedia.org/wikipedia/commons/4/41/Rising_circular.gif>`_

@@ -1,0 +1,7 @@
+visualization class
+====================
+
+.. autoclass:: visualization
+   :members:
+   :undoc-members:
+   :show-inheritance:
