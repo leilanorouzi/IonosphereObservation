@@ -1,7 +1,8 @@
 multi\_source class
 ====================
 
-.. autoclass:: multi_source
+.. automodule:: multi_source
    :members:
    :undoc-members:
    :show-inheritance:
+

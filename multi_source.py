@@ -1,7 +1,4 @@
 '''
-The goal is to answer:
-What do we do if there are two sources or many sources?
-What is the phase and amplitude at a single antenna in that case?
 
 
 '''
@@ -17,8 +14,8 @@ class multi_source(object):
     :argument:
         - radar_fn: the file name containing the values of the antenna variables
         - source_fn: the file name containing the values of the wave source variables
-    : Attributes:
-        - antenna_charc: Dataframe, antenna variables
+    :attributes:
+        - antenna_charc: DataFrame, Antenna variables
         - antenna_location: Array, antenna location coordinate
         - radar_n: Integer: The number of antenna
 
@@ -29,13 +26,27 @@ class multi_source(object):
         - s_columns: List, the header of the column name for creating the DataFrame
         - source_location: Array, the location of wave sources
 
-    : Methodes:
+        - distance: DataFrame, the distance between source/s and antennas
+        - path_vec: DataFrame, the vecors of path from anttena to source/s
+
+    :methods:
         - dist: to calculate the distance between two points in Cartesian coordinate
 
+    :Example:
+    >>> from multi_source import *
+    >>> ms = multi_source(radar_fn,source_fn)
+    >>> phase, wave = ms.antennna_wave_received()
     '''
 
-
     def __init__(self,radar_fn:str,source_fn:str):
+        '''
+
+        :param radar_fn: Antenna txt file path
+        :type radar_fn: str
+        :param source_fn: Source/s txt file path
+        :type source_fn: str
+
+        '''
 
         self.antenna_charc = read_antenna(radar_fn)
         self.antenna_location = self.antenna_charc.loc[:, ['x', 'y', 'z']].values  # Taking coordinations
@@ -67,6 +78,8 @@ class multi_source(object):
 
         # Source to antenna distances
         self.distance, self.path_vec = self.multi_dist()
+        print("Distance:\n", self.distance,
+              "Vector:\n", self.path_vec)
 
     def dist(self,a:list,b:list)->float:
         '''
@@ -86,11 +99,13 @@ class multi_source(object):
         '''
         This function calculates the distance between source/s and antenna/s and also returns a vector of source-antenna for every set of source-antenna.
 
-
-        :return:
-            - dist_arr: Dataframe, the distances from the source to the antenna
-            - sa_vec: Dataframe, the vector from source to the antenna in Cartesian coordinate system (x,y,z).
+        :returns:
+            - dist_arr: the distances from the source to the antenna
+            - sa_vec:  the vector from source to the antenna in Cartesian coordinate system (x,y,z).
                         each elements are a list of vector components
+        :rtype: pandas.Dataframe
+
+
         '''
 
         dist_arr = pd.DataFrame(np.zeros((self.radar_n,self.source_n)),
@@ -108,14 +123,18 @@ class multi_source(object):
                      polar_stat='unpolarized',
                      alpha_x=0, #phase angle
                      alpha_y=0, #pahse angle
-                     ):
+                     ) -> np.array:
         '''
-        This function calculate the Jones vector of a situation.
+        This function calculate the Jones vector of a situation. As, e^(i(a_x,a_y,0)).
 
-        :param polar_stat: a string, the type of polirization. unpolarized, linear, elliptical
-        :param alpha_x: float, phase angle respect to x direction
-        :param alpha_y: float, phase angle respect  to y direction
-        :return: an array. The jones vector
+        :param polar_stat: The type of polarization. unpolarized, linear, elliptical
+        :type polar_stat: str
+        :param alpha_x: The phase angle respect to x direction
+        :type alpha_x: float
+        :param alpha_y: The phase angle respect  to y direction
+        :type alpha_y: float
+        :return: The jones vector
+        :rtype: numpy.array
         '''
         a = np.zeros([self.source_n,3],dtype=complex)
 
@@ -124,8 +143,6 @@ class multi_source(object):
                 print("\x1b[1;31m THE PARAMETER DON'T FIT THE POLARIZATION STATUS, please check again.\x1b[0m\n" )
             else:
                 print("\x1b[1;31m THERE IS NO POLARIZATION.\x1b[0m\n")
-            res = a
-
         else:
 
             if polar_stat.lower()=='linear':
@@ -143,25 +160,27 @@ class multi_source(object):
                     print("\x1b[1;31m THE POLARIZATION IS ELLIPTICAL.\x1b[0m\n")
 
         for s in range(self.source_n):
-            # amp = self.source_charc.A_s[s]
             a[s,:] = [ cmath.exp(complex(0, 1)*alpha_x) ,
                        cmath.exp(complex(0, 1)*alpha_y),
                        0]
         return a
 
 
-    def antennna_wave_received(self):
+    def antennna_wave_received(self) ->( pd.DataFrame , pd.DataFrame ):
         '''
         This function calculates the value of the recieved wave from every source at all antenna.
         The assumptions:
             - Plane wave
             - Free space
+            - The wave propagates along z direction
 
         The wave considered as a combination of amplitude, Amp and oscillation, osc.
         Oscillation part contains the phase.
 
         :return:
+
             -phase: Dataframe, the phase of wave from each source at the antenna location
+
             -wave: Dataframe, the received wave from each source at the location of antenna
         '''
 
@@ -174,6 +193,7 @@ class multi_source(object):
         #     Amp[:,i] = [Amp0[i],0,0]  # plane wave traveling along z direction
         # assuming Ey=Ez=0
         Amp = np.zeros([self.source_n,3])
+        # For every source gets the amplitude
         for s in range(self.source_n):
             Amp[:,s] = self.source_charc.A_s[s]
 
@@ -182,47 +202,50 @@ class multi_source(object):
         #a=k.r
         w_num = self.source_charc.k
 
+        # For every antenna and source calculates k.r
         a = np.array([[
             np.dot(w_num[i], [0,0,self.distance.iloc[j,i]])
             for j in range(self.radar_n)]
             for i in range(self.source_n)]).T
+        # Convert the array to a DataFrame
         a = pd.DataFrame(a,columns=self.s_columns)
 
         # b=w*t
+        # For every source calculate temporal part of oscillation w.t
         b = 2 * np.pi * (10 ** 6) * \
             np.array([self.source_charc.loc[i, 'f'] * t.iloc[:, i] for i in range(self.source_n)]).T
+        # Convert it to a DataFrame
         b = pd.DataFrame(b,columns=self.s_columns)
 
+        # Calculate the phase as k.r - w.t
         phase = a-b
 
-        # oscilation : exp i(k.r-wt)
+        # Calculate the oscillation as: exp i(k.r-wt)
         osc = phase.applymap(lambda x: cmath.exp(complex(0, 1)*x))
 
         # polarization part
+        # Obtain the jones vector by running polarization function
         Jones_vec = self.polarization(polar_stat='Unpolarized',
                                       alpha_x=0,
                                       alpha_y=0)
 
-        print("Distance:\n", self.distance,
-              "Vector:\n",self.path_vec,
+        print(
               '\nTime:\n', t,
               '\nAmplitude:\n',Amp,
               '\nPhase:\n',phase,
               '\nOscillation:\n',osc,
               '\nPolarization:\n',Jones_vec)
 
-
+        # Make an empty DataFrame for result of the received field
         wave = pd.DataFrame(np.zeros([self.radar_n,self.source_n]),columns=self.s_columns)
-        #wave= amp*real(Jones_vec*osc) , plane wave
+        # Calculate the wave equation for every set of antenna-source
+        # wave= amp*real(Jones_vec*osc) , plane wave
         for j in range(self.source_n):
             for i in range(self.radar_n):
                 non_amp = osc.iloc[i, j]*Jones_vec[j,:]
                 w = [Amp[j,:]* non_amp.real]
                 wave.iloc[[i],j] = pd.Series(w,index=[i])
-        # w = pd.DataFrame([Amp[i,:] * osc.iloc[j, i]
-        #                   for i in range(self.source_n) for j in range(self.radar_n)]).T
-        # wave = pd.DataFrame(data = w,
-        #                     columns=self.s_columns)
+
         print('\x1b[1;31mReceived waves from each source at the antenna locations:\x1b[0m \n',wave)
         return phase,wave
         # pass
@@ -232,11 +255,14 @@ class multi_source(object):
         Gets the received waves from every sources at the antenna.
         Rotate ray path reference frame to the original reference frame.
         add them up to calculate the total waves from all sources.
-        :return:
-            - List, the superposition of waves received from source/s for each antenna
+
+        :param w: The result of wave from antennna_wave_received function.
+        :type w: pd.DataFrame
+        :return: The superposition of waves received from source/s for each antenna
+        :rtype: list
         '''
 
-
+        # Build an empty array for final result
         total_waves = np.zeros([self.radar_n,3],dtype=complex)
 
         for i_a in range(self.radar_n):  #for every antenna
@@ -245,9 +271,12 @@ class multi_source(object):
 
             for i_s in range(self.source_n):
                 if i_s !=0:
-
+                    # Calculate the rotation matrix to rotate ray path attached reference frame to the original refernce
                     rotation_matrix = rotate_refernce(self.path_vec.iloc[i_a,i_s])
+                    # Obtain the field vector in the original reference frame by multiplying rotation matrix to the field vector
                     rotated = np.dot(rotation_matrix,w.iloc[i_a,i_s])
+
+                    # Adding the field vectors from all sources
                     antenna_w_total = np.add(
                         rotated,
                         antenna_w_total)
@@ -269,6 +298,7 @@ class multi_source(object):
         p_, w_ = self.antennna_wave_received()
         print(p_)
 
+        # Add all phases from all sources to find the total phase at every antenna
         phase_diff = p_.sum(axis=1)
 
         print('\x1b[1;31mPhase differences at the antenna locations (rad):\x1b[0m \n')
@@ -276,7 +306,7 @@ class multi_source(object):
         return phase_diff
 
 
-    def voltage(self):
+    def voltage(self)-> np.array:
         '''
         multiplies the total electric field to the length of the of antenna in each direction
         :return: The voltage at the antenna

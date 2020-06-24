@@ -1,4 +1,5 @@
 import warnings
+
 warnings.filterwarnings("default", category=DeprecationWarning)
 
 import numpy as np
@@ -8,6 +9,7 @@ import os
 # import tkinter as tk
 from tkinter import Tk
 from tkinter import filedialog
+
 
 def select_directory():
     '''
@@ -31,49 +33,65 @@ def select_directory():
 
     return input_dir
 
+
 def main():
     '''
     The main code to run other modules and plot the graphics.
 
     :return: None
     '''
-
-    #You can select the data folder
+    # -------------------------------------------------
+    # Getting input data. There are 2 ways to import the data
+    # 1- You can select the data folder
     input_dir = select_directory()
-    # or you can type it in here directly
+    # 2- or you can type it in here directly.
+    # If you would like to use this method please, comment above line and uncomment following line.
     # input_dir = "../IonosphereObservation/Data/Input/"
 
     # file name of the antenna
-    fnr = input_dir+'03-tri50_2.txt'
+    fnr = input_dir + '03-tri50_2.txt'
     # file name of the source
-    fns = input_dir+'source2.txt'
+    fns = input_dir + 'source2.txt'
 
-    #to call the class
-    ms = multi_source(radar_fn=fnr,source_fn=fns)
+    # -------------------------------------------------
+    # to call the class
+    ms = multi_source(radar_fn=fnr, source_fn=fns)
 
-    #Visulization part
+    #-------------------------------------------------
+    # Visualization
+    # Plotting the antennas and source/s location
+
+    # Calling the visualization calss
     vis = visualization(a=ms.antenna_location, s=ms.source_location)
     # To obtain the location of the antenna and source and plot them
     print("\x1b[1;31m Please check the plot window.\x1b[0m\n")
     vis.source_antenna_location()
 
+    # -------------------------------------------------
+    # Calculations
+
     # To obtain waves at the antenna
-    _,w = ms.antennna_wave_received()
+    # run antenna_wave_received function to calculate the wave results as a data frame for all sources and antennas
+    _, w = ms.antennna_wave_received()
+    # To obtain the total result for each antenna, call the vector_superposition function.
+    # It calculate received waves from all sources for each antenna in the original reference frame
+    # and add their components up.
     waves = ms.vector_superposition(w)
 
+    # To obtain the phase difference at the antenna call phase_diff function.
+    phase_difference = ms.phase_diff()
+    print('\nPhase difference in degree:\n', np.degrees(phase_difference).round(3))
 
-    # To obtain the phase difference at the antenna
-    phase_difference =  ms.phase_diff()
-    print('\nPhase difference in degree:\n',np.degrees(phase_difference).round(3))
-
+    # To obtain the voltage call voltage function
     voltage = ms.voltage()
 
 
+    # -------------------------------------------------
+    # The end
     print('FINISHED')
 
     pass
 
+
 if __name__ == '__main__':
     main()
-
-

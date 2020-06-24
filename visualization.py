@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 class visualization(object):
     '''
-
+    This class contains all function related to the plotting and visualization aspect of project
     '''
 
     def __init__(self, a: np.array, s: np.array):

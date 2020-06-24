@@ -53,6 +53,7 @@ Please look at the figure:
     :alt: The location of the sources and the antenna
     :target: OriginalDocuments/referenceFrame.png
 
+    The red point is the source and green points are antennas. For every source-antenna set, the second reference frame (little black one) is rotated so that its z direction is along the ray path from the source to the antenna.
 
 
 The origin is :math:`(0,0,0)`, so the antennas are pretty close to the origin.

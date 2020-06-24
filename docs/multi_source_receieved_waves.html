@@ -7,6 +7,7 @@
     <title>multi_source_receieved_waves module &#8212; EM wave propagation for antenna 0.0.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
@@ -33,9 +34,10 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="module-multi_source_receieved_waves">
-<span id="multi-source-receieved-waves-module"></span><h1>multi_source_receieved_waves module<a class="headerlink" href="#module-multi_source_receieved_waves" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+  <div class="section" id="multi-source-receieved-waves-module">
+<h1>multi_source_receieved_waves module<a class="headerlink" href="#multi-source-receieved-waves-module" title="Permalink to this headline">¶</a></h1>
+<p>The main code to run other modules and plot the graphics. After importing input data, you can call <a class="reference internal" href="visualization.html#module-visualization" title="visualization"><code class="xref py py-class docutils literal notranslate"><span class="pre">visualization</span></code></a> to plot or <a class="reference internal" href="multi_source.html#module-multi_source" title="multi_source"><code class="xref py py-class docutils literal notranslate"><span class="pre">multi_source</span></code></a> to calculate different results.</p>
+<span class="target" id="module-multi_source_receieved_waves"></span><dl class="function">
 <dt id="multi_source_receieved_waves.main">
 <code class="sig-prename descclassname">multi_source_receieved_waves.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/multi_source_receieved_waves.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#multi_source_receieved_waves.main" title="Permalink to this definition">¶</a></dt>
 <dd><p>The main code to run other modules and plot the graphics.</p>
@@ -58,6 +60,14 @@
 <p>:rtype:str</p>
 </dd></dl>
 
+<div class="section" id="import-data">
+<h2>Import data<a class="headerlink" href="#import-data" title="Permalink to this headline">¶</a></h2>
+<p>There are 2 ways to import the data</p>
+<p>1- You can select the data folder. When you ru the code, a window will open and asks you to choose the inout data folder. It runs <a href="#id1"><span class="problematic" id="id2">:py:fun:`multi_source_receieved_waves.select_directory`</span></a> function.</p>
+<p>2- or you can type it in here directly.
+If you would like to use this method please, comment above line and uncomment following line and replace the directory path with the location of the input data in you machine.
+<code class="docutils literal notranslate"><span class="pre">input_dir</span> <span class="pre">=</span> <span class="pre">&quot;../IonosphereObservation/Data/Input/&quot;</span></code></p>
+</div>
 </div>
 
 
