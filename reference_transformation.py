@@ -69,7 +69,14 @@ def projection(a, b):
 
 
 def axis_angels(vec):
-    # print(vec)
+    '''
+    This function calculates the angels between the vector and x, y  and z axis.
+
+    :param vec: the vector that second frame is attached to
+    :type vec: list
+    :return: 3 angles in rad.
+    :rtype: float, float, float
+    '''
     # l = vector_length(vec)
     # ang_x = np.arccos(vec[0]/l)
     ang_x = np.arctan(vec[1] / vec[2])
@@ -85,8 +92,10 @@ def axis_angels(vec):
 
 def rotate_refernce(vec):
     '''
-    :param vec: the vector that
-    :return:
+    :param vec: the vector that second frame is attached to
+    :type vec: list
+    :return: The reference frame rotation matrix.
+    :rtype: np.array
     '''
     angx, angy, angz = axis_angels(vec)
 

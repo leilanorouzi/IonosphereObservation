@@ -11,6 +11,7 @@ import cmath
 
 class multi_source(object):
     '''
+
     :argument:
         - radar_fn: the file name containing the values of the antenna variables
         - source_fn: the file name containing the values of the wave source variables
@@ -22,7 +23,7 @@ class multi_source(object):
         - ref_index: refractive index of the medium
 
         - source_charc: Dataframe, source of wave variables
-        - source_n: Integer:, the number of the wave sources
+        - source_n: Integer, the number of the wave sources
         - s_columns: List, the header of the column name for creating the DataFrame
         - source_location: Array, the location of wave sources
 

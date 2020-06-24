@@ -104,7 +104,14 @@
 
 
 <div class="viewcode-block" id="axis_angels"><a class="viewcode-back" href="../reference_transformation.html#reference_transformation.axis_angels">[docs]</a><span class="k">def</span> <span class="nf">axis_angels</span><span class="p">(</span><span class="n">vec</span><span class="p">):</span>
-    <span class="c1"># print(vec)</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This function calculates the angels between the vector and x, y  and z axis.</span>
+
+<span class="sd">    :param vec: the vector that second frame is attached to</span>
+<span class="sd">    :type vec: list</span>
+<span class="sd">    :return: 3 angles in rad.</span>
+<span class="sd">    :rtype: float, float, float</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="c1"># l = vector_length(vec)</span>
     <span class="c1"># ang_x = np.arccos(vec[0]/l)</span>
     <span class="n">ang_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">vec</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">vec</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
@@ -120,8 +127,10 @@
 
 <div class="viewcode-block" id="rotate_refernce"><a class="viewcode-back" href="../reference_transformation.html#reference_transformation.rotate_refernce">[docs]</a><span class="k">def</span> <span class="nf">rotate_refernce</span><span class="p">(</span><span class="n">vec</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    :param vec: the vector that</span>
-<span class="sd">    :return:</span>
+<span class="sd">    :param vec: the vector that second frame is attached to</span>
+<span class="sd">    :type vec: list</span>
+<span class="sd">    :return: The reference frame rotation matrix.</span>
+<span class="sd">    :rtype: np.array</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">angx</span><span class="p">,</span> <span class="n">angy</span><span class="p">,</span> <span class="n">angz</span> <span class="o">=</span> <span class="n">axis_angels</span><span class="p">(</span><span class="n">vec</span><span class="p">)</span>
 

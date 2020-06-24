@@ -36,13 +36,32 @@
             
   <div class="section" id="main-code">
 <h1>Main code<a class="headerlink" href="#main-code" title="Permalink to this headline">¶</a></h1>
+<p>The main code <a class="reference internal" href="multi_source_receieved_waves.html#module-multi_source_receieved_waves" title="multi_source_receieved_waves"><code class="xref py py-mod docutils literal notranslate"><span class="pre">multi_source_receieved_waves</span></code></a>  is the amin code. It runs other modules and plot the graphics.
+After importing input data, you can call <a class="reference internal" href="visualization.html#module-visualization" title="visualization"><code class="xref py py-class docutils literal notranslate"><span class="pre">visualization</span></code></a> to plot or <a class="reference internal" href="multi_source.html#module-multi_source" title="multi_source"><code class="xref py py-class docutils literal notranslate"><span class="pre">multi_source</span></code></a>
+to calculate different results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">multi_source</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ms</span> <span class="o">=</span> <span class="n">multi_source</span><span class="p">(</span><span class="n">radar_fn</span><span class="p">,</span><span class="n">source_fn</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">phase</span><span class="p">,</span> <span class="n">wave</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">antennna_wave_received</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vis</span> <span class="o">=</span> <span class="n">visualization</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">ms</span><span class="o">.</span><span class="n">antenna_location</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">ms</span><span class="o">.</span><span class="n">source_location</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vis</span><span class="o">.</span><span class="n">source_antenna_location</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="section" id="import-data">
+<h2>Import data<a class="headerlink" href="#import-data" title="Permalink to this headline">¶</a></h2>
+<p>There are 2 options to import the data:</p>
+<p>1- You can select the data folder. When you ru the code, a window will open and asks you to choose the inout data folder. It runs <a class="reference internal" href="multi_source_receieved_waves.html#multi_source_receieved_waves.select_directory" title="multi_source_receieved_waves.select_directory"><code class="xref py py-func docutils literal notranslate"><span class="pre">multi_source_receieved_waves.select_directory()</span></code></a> function.</p>
+<p>2- or you can type it in here directly.
+If you would like to use this method please, comment above line and uncomment following line and replace the directory path with the location of the input data in you code.</p>
+<p><code class="docutils literal notranslate"><span class="pre">input_dir</span> <span class="pre">=</span> <span class="pre">&quot;../IonosphereObservation/Data/Input/&quot;</span></code></p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="multi_source_receieved_waves.html">multi_source_receieved_waves module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="multi_source_receieved_waves.html#import-data">Import data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_source_receieved_waves.html">multi_source_receieved_waves module</a></li>
 </ul>
-</li>
-</ul>
+</div>
 </div>
 </div>
 
@@ -67,7 +86,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="info.html">Project overview</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Main code</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="multi_source_receieved_waves.html">multi_source_receieved_waves module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#import-data">Import data</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">Module codes</a></li>

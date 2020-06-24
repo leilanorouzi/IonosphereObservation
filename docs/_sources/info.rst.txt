@@ -1,6 +1,7 @@
 
 Project overview
 ================
+
 The project is design to prob the antenna system.
 
 
@@ -49,8 +50,9 @@ The antennas, in an L shape with 50-m legs and 3.8 m arms, at the cartesian coor
 Please look at the figure:
 
 .. figure:: _static/referenceFrame0.png
-    :align: right
+    :align: center
     :alt: The location of the sources and the antenna
+    :scale: 40%
     :target: OriginalDocuments/referenceFrame.png
 
     The red point is the source and green points are antennas. For every source-antenna set, the second reference frame (little black one) is rotated so that its z direction is along the ray path from the source to the antenna.

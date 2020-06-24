@@ -34,9 +34,15 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="module-reference_transformation">
-<span id="reference-transformation-module"></span><h1>reference_transformation module<a class="headerlink" href="#module-reference_transformation" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+  <div class="section" id="reference-transformation-module">
+<h1>reference_transformation module<a class="headerlink" href="#reference-transformation-module" title="Permalink to this headline">¶</a></h1>
+<p>The field vector is calculating in the reference frame system that the z direction is attached to the ray path.
+In order to obtain the received field vector at the antenna in the original frame, we need to rotate ray-path attached frame tot the original one.
+Please look at the picture:</p>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/referenceFrame01.png"><img alt="_images/referenceFrame01.png" src="_images/referenceFrame01.png" style="width: 514.5px; height: 583.0px;" /></a>
+</div>
+<span class="target" id="module-reference_transformation"></span><dl class="function">
 <dt id="reference_transformation.asCartesian">
 <code class="sig-prename descclassname">reference_transformation.</code><code class="sig-name descname">asCartesian</code><span class="sig-paren">(</span><em class="sig-param">rthetaphi</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reference_transformation.html#asCartesian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reference_transformation.asCartesian" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -49,7 +55,19 @@
 <dl class="function">
 <dt id="reference_transformation.axis_angels">
 <code class="sig-prename descclassname">reference_transformation.</code><code class="sig-name descname">axis_angels</code><span class="sig-paren">(</span><em class="sig-param">vec</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reference_transformation.html#axis_angels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reference_transformation.axis_angels" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This function calculates the angels between the vector and x, y  and z axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vec</strong> (<em>list</em>) – the vector that second frame is attached to</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>3 angles in rad.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float, float, float</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="function">
 <dt id="reference_transformation.projection">
@@ -61,10 +79,13 @@
 <code class="sig-prename descclassname">reference_transformation.</code><code class="sig-name descname">rotate_refernce</code><span class="sig-paren">(</span><em class="sig-param">vec</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reference_transformation.html#rotate_refernce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reference_transformation.rotate_refernce" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>vec</strong> – the vector that</p>
+<dd class="field-odd"><p><strong>vec</strong> (<em>list</em>) – the vector that second frame is attached to</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
+<dd class="field-even"><p>The reference frame rotation matrix.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.array</p>
 </dd>
 </dl>
 </dd></dl>

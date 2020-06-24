@@ -1,8 +1,39 @@
 Main code
 =========
 
+The main code :py:mod:`multi_source_receieved_waves`  is the amin code. It runs other modules and plot the graphics.
+After importing input data, you can call :py:class:`visualization` to plot or :py:class:`multi_source`
+to calculate different results.
+
+:Example:
+
+>>> from multi_source import *
+>>> ms = multi_source(radar_fn,source_fn)
+>>> phase, wave = ms.antennna_wave_received()
+>>> vis = visualization(a=ms.antenna_location, s=ms.source_location)
+>>> vis.source_antenna_location()
+
+
+
+Import data
++++++++++++
+
+There are 2 options to import the data:
+
+1- You can select the data folder. When you ru the code, a window will open and asks you to choose the inout data folder. It runs :py:func:`multi_source_receieved_waves.select_directory` function.
+
+2- or you can type it in here directly.
+If you would like to use this method please, comment above line and uncomment following line and replace the directory path with the location of the input data in you code.
+
+``input_dir = "../IonosphereObservation/Data/Input/"``
+
+
+
 .. toctree::
    :maxdepth: 2
 
    multi_source_receieved_waves
+
+
+
 
