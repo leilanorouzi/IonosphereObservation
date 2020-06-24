@@ -16,7 +16,7 @@ def select_directory():
     This function, opens a window and asks the user to choose the folder that contains the files
 
     :return: the path of the input data
-    :rtype:str
+    :rtype: str
     '''
 
     # You can choose the directory of the input data

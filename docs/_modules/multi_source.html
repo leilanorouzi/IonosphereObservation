@@ -66,6 +66,11 @@
 
 <span class="sd">    :methods:</span>
 <span class="sd">        - dist: to calculate the distance between two points in Cartesian coordinate</span>
+<span class="sd">        - multi_dist: to caculate the distance and the vector between each set of source-antenna. It calls dist function to calculate the distance.</span>
+<span class="sd">        - polarization: To calculate the Jones vector of the source. It gets phase angels.</span>
+<span class="sd">        - antennna_wave_received: This function calculate the field components and the phase of the field received at the antenna location, trasmitted from the source. The results are calculated at the ray path attached reference frame.</span>
+<span class="sd">        - vector_superposition: Calculate the superposition of the vecor by rotating the refernce frame from ray path attached reference frame to the original reference frame.</span>
+<span class="sd">        - voltage: Calculate the volatge of the received electric field at the antenna location.</span>
 
 <span class="sd">    :Example:</span>
 <span class="sd">    &gt;&gt;&gt; from multi_source import *</span>

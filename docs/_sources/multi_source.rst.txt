@@ -1,5 +1,39 @@
 multi\_source class
 ====================
+This the main class to calculate the properties of wave transmitted from the source and received at the antenna.
+
+
+:argument:
+    - radar_fn: the file name containing the values of the antenna variables
+    - source_fn: the file name containing the values of the wave source variables
+:attributes:
+    - antenna_charc: DataFrame, Antenna variables
+    - antenna_location: Array, antenna location coordinate
+    - radar_n: Integer: The number of antenna
+
+    - ref_index: refractive index of the medium
+
+    - source_charc: Dataframe, source of wave variables
+    - source_n: Integer:, the number of the wave sources
+    - s_columns: List, the header of the column name for creating the DataFrame
+    - source_location: Array, the location of wave sources
+
+    - distance: DataFrame, the distance between source/s and antennas
+    - path_vec: DataFrame, the vecors of path from anttena to source/s
+
+:methods:
+    - dist: to calculate the distance between two points in Cartesian coordinate
+    - multi_dist: to caculate the distance and the vector between each set of source-antenna. It calls dist function to calculate the distance.
+    - polarization: To calculate the Jones vector of the source. It gets phase angels.
+    - antennna_wave_received: This function calculate the field components and the phase of the field received at the antenna location, trasmitted from the source. The results are calculated at the ray path attached reference frame.
+    - vector_superposition: Calculate the superposition of the vecor by rotating the refernce frame from ray path attached reference frame to the original reference frame.
+    - voltage: Calculate the volatge of the received electric field at the antenna location.
+
+:Example:
+>>> from multi_source import *
+>>> ms = multi_source(radar_fn,source_fn)
+>>> phase, wave = ms.antennna_wave_received()
+
 
 .. automodule:: multi_source
    :members:

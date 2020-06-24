@@ -36,7 +36,20 @@
             
   <div class="section" id="multi-source-receieved-waves-module">
 <h1>multi_source_receieved_waves module<a class="headerlink" href="#multi-source-receieved-waves-module" title="Permalink to this headline">¶</a></h1>
-<p>The main code to run other modules and plot the graphics. After importing input data, you can call <a class="reference internal" href="visualization.html#module-visualization" title="visualization"><code class="xref py py-class docutils literal notranslate"><span class="pre">visualization</span></code></a> to plot or <a class="reference internal" href="multi_source.html#module-multi_source" title="multi_source"><code class="xref py py-class docutils literal notranslate"><span class="pre">multi_source</span></code></a> to calculate different results.</p>
+<p>The main code to run other modules and plot the graphics.
+After importing input data, you can call <a class="reference internal" href="visualization.html#module-visualization" title="visualization"><code class="xref py py-class docutils literal notranslate"><span class="pre">visualization</span></code></a> to plot or <a class="reference internal" href="multi_source.html#module-multi_source" title="multi_source"><code class="xref py py-class docutils literal notranslate"><span class="pre">multi_source</span></code></a>
+to calculate different results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">multi_source</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ms</span> <span class="o">=</span> <span class="n">multi_source</span><span class="p">(</span><span class="n">radar_fn</span><span class="p">,</span><span class="n">source_fn</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">phase</span><span class="p">,</span> <span class="n">wave</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">antennna_wave_received</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vis</span> <span class="o">=</span> <span class="n">visualization</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">ms</span><span class="o">.</span><span class="n">antenna_location</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">ms</span><span class="o">.</span><span class="n">source_location</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vis</span><span class="o">.</span><span class="n">source_antenna_location</span><span class="p">()</span>
+</pre></div>
+</div>
 <span class="target" id="module-multi_source_receieved_waves"></span><dl class="function">
 <dt id="multi_source_receieved_waves.main">
 <code class="sig-prename descclassname">multi_source_receieved_waves.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/multi_source_receieved_waves.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#multi_source_receieved_waves.main" title="Permalink to this definition">¶</a></dt>
@@ -56,17 +69,19 @@
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>the path of the input data</p>
 </dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
 </dl>
-<p>:rtype:str</p>
 </dd></dl>
 
 <div class="section" id="import-data">
 <h2>Import data<a class="headerlink" href="#import-data" title="Permalink to this headline">¶</a></h2>
-<p>There are 2 ways to import the data</p>
-<p>1- You can select the data folder. When you ru the code, a window will open and asks you to choose the inout data folder. It runs <a href="#id1"><span class="problematic" id="id2">:py:fun:`multi_source_receieved_waves.select_directory`</span></a> function.</p>
+<p>There are 2 options to import the data:</p>
+<p>1- You can select the data folder. When you ru the code, a window will open and asks you to choose the inout data folder. It runs <a class="reference internal" href="#multi_source_receieved_waves.select_directory" title="multi_source_receieved_waves.select_directory"><code class="xref py py-func docutils literal notranslate"><span class="pre">multi_source_receieved_waves.select_directory()</span></code></a> function.</p>
 <p>2- or you can type it in here directly.
-If you would like to use this method please, comment above line and uncomment following line and replace the directory path with the location of the input data in you machine.
-<code class="docutils literal notranslate"><span class="pre">input_dir</span> <span class="pre">=</span> <span class="pre">&quot;../IonosphereObservation/Data/Input/&quot;</span></code></p>
+If you would like to use this method please, comment above line and uncomment following line and replace the directory path with the location of the input data in you code.</p>
+<p><code class="docutils literal notranslate"><span class="pre">input_dir</span> <span class="pre">=</span> <span class="pre">&quot;../IonosphereObservation/Data/Input/&quot;</span></code></p>
 </div>
 </div>
 

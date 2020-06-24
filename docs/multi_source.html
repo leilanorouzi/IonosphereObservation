@@ -34,9 +34,49 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="module-multi_source">
-<span id="multi-source-class"></span><h1>multi_source class<a class="headerlink" href="#module-multi_source" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
+  <div class="section" id="multi-source-class">
+<h1>multi_source class<a class="headerlink" href="#multi-source-class" title="Permalink to this headline">¶</a></h1>
+<p>This the main class to calculate the properties of wave transmitted from the source and received at the antenna.</p>
+<dl class="field-list simple">
+<dt class="field-odd">argument</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>radar_fn: the file name containing the values of the antenna variables</p></li>
+<li><p>source_fn: the file name containing the values of the wave source variables</p></li>
+</ul>
+</dd>
+<dt class="field-even">attributes</dt>
+<dd class="field-even"><ul class="simple">
+<li><p>antenna_charc: DataFrame, Antenna variables</p></li>
+<li><p>antenna_location: Array, antenna location coordinate</p></li>
+<li><p>radar_n: Integer: The number of antenna</p></li>
+<li><p>ref_index: refractive index of the medium</p></li>
+<li><p>source_charc: Dataframe, source of wave variables</p></li>
+<li><p>source_n: Integer:, the number of the wave sources</p></li>
+<li><p>s_columns: List, the header of the column name for creating the DataFrame</p></li>
+<li><p>source_location: Array, the location of wave sources</p></li>
+<li><p>distance: DataFrame, the distance between source/s and antennas</p></li>
+<li><p>path_vec: DataFrame, the vecors of path from anttena to source/s</p></li>
+</ul>
+</dd>
+<dt class="field-odd">methods</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>dist: to calculate the distance between two points in Cartesian coordinate</p></li>
+<li><p>multi_dist: to caculate the distance and the vector between each set of source-antenna. It calls dist function to calculate the distance.</p></li>
+<li><p>polarization: To calculate the Jones vector of the source. It gets phase angels.</p></li>
+<li><p>antennna_wave_received: This function calculate the field components and the phase of the field received at the antenna location, trasmitted from the source. The results are calculated at the ray path attached reference frame.</p></li>
+<li><p>vector_superposition: Calculate the superposition of the vecor by rotating the refernce frame from ray path attached reference frame to the original reference frame.</p></li>
+<li><p>voltage: Calculate the volatge of the received electric field at the antenna location.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">multi_source</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ms</span> <span class="o">=</span> <span class="n">multi_source</span><span class="p">(</span><span class="n">radar_fn</span><span class="p">,</span><span class="n">source_fn</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">phase</span><span class="p">,</span> <span class="n">wave</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">antennna_wave_received</span><span class="p">()</span>
+</pre></div>
+</div>
+<span class="target" id="module-multi_source"></span><dl class="class">
 <dt id="multi_source.multi_source">
 <em class="property">class </em><code class="sig-prename descclassname">multi_source.</code><code class="sig-name descname">multi_source</code><span class="sig-paren">(</span><em class="sig-param">radar_fn: str</em>, <em class="sig-param">source_fn: str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/multi_source.html#multi_source"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#multi_source.multi_source" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -64,6 +104,11 @@
 <dt class="field-odd">Methods</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p>dist: to calculate the distance between two points in Cartesian coordinate</p></li>
+<li><p>multi_dist: to caculate the distance and the vector between each set of source-antenna. It calls dist function to calculate the distance.</p></li>
+<li><p>polarization: To calculate the Jones vector of the source. It gets phase angels.</p></li>
+<li><p>antennna_wave_received: This function calculate the field components and the phase of the field received at the antenna location, trasmitted from the source. The results are calculated at the ray path attached reference frame.</p></li>
+<li><p>vector_superposition: Calculate the superposition of the vecor by rotating the refernce frame from ray path attached reference frame to the original reference frame.</p></li>
+<li><p>voltage: Calculate the volatge of the received electric field at the antenna location.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Example</dt>
@@ -226,11 +271,7 @@ add them up to calculate the total waves from all sources.</p>
 <li class="toctree-l1"><a class="reference internal" href="info.html">Project overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html">Main code</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">Module codes</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">multi_source class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="parameters.html">parameters module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reading_files.html">reading_files module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference_transformation.html">reference_transformation module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="visualization.html">visualization class</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="modules.html#link-to-modules">Link to modules</a></li>
 </ul>
 </li>
 </ul>

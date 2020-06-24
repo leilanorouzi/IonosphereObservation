@@ -14,7 +14,7 @@ class visualization(object):
 
     def source_antenna_location(self):
         '''
-        This function only plot the location of the antenna and sources and the stright pathe from the souce and antenna
+        This function only plot the location of the antenna and sources and the straight path from the source and antenna
         :param a: Array, the location of antenna
         :param s: Array, The location of source/s
         :return: None

@@ -31,6 +31,11 @@ class multi_source(object):
 
     :methods:
         - dist: to calculate the distance between two points in Cartesian coordinate
+        - multi_dist: to caculate the distance and the vector between each set of source-antenna. It calls dist function to calculate the distance.
+        - polarization: To calculate the Jones vector of the source. It gets phase angels.
+        - antennna_wave_received: This function calculate the field components and the phase of the field received at the antenna location, trasmitted from the source. The results are calculated at the ray path attached reference frame.
+        - vector_superposition: Calculate the superposition of the vecor by rotating the refernce frame from ray path attached reference frame to the original reference frame.
+        - voltage: Calculate the volatge of the received electric field at the antenna location.
 
     :Example:
     >>> from multi_source import *
