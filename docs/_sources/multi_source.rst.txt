@@ -35,7 +35,7 @@ This the main class to calculate the properties of wave transmitted from the sou
 
 :Example:
 >>> from multi_source import *
->>> ms = multi_source(radar_fn,source_fn)
+>>> ms = multi_source(radar_fn,source_fn, dipole)
 >>> phase, wave = ms.antennna_wave_received()
 
 

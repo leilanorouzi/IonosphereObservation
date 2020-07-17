@@ -377,7 +377,8 @@
         <span class="n">osc</span> <span class="o">=</span> <span class="n">phase</span><span class="o">.</span><span class="n">applymap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">cmath</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">x</span><span class="p">))</span>
         <span class="c1"># consider a dipole source in the ionosphere</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dipole</span><span class="p">:</span>
-            <span class="n">osc_dipole</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">osc</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dipole_transmitter</span><span class="p">())</span>
+            <span class="n">dipole_</span> <span class="p">,</span> <span class="n">_</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dipole_transmitter</span><span class="p">()</span>
+            <span class="n">osc_dipole</span> <span class="o">=</span> <span class="n">osc</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">dipole_</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span> <span class="n">osc_dipole</span> <span class="o">=</span> <span class="n">osc</span>
 
         <span class="c1"># polarization part</span>

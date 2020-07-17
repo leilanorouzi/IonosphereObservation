@@ -8,7 +8,7 @@ to calculate different results.
 :Example:
 
 >>> from multi_source import *
->>> ms = multi_source(radar_fn,source_fn)
+>>> ms = multi_source(radar_fn,source_fn,dipole)
 >>> phase, wave = ms.antennna_wave_received()
 >>> vis = visualization(a=ms.antenna_location, s=ms.source_location)
 >>> vis.source_antenna_location()

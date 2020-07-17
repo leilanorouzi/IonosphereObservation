@@ -78,10 +78,10 @@
     <span class="c1"># -------------------------------------------------</span>
     <span class="c1"># Getting input data. There are 2 ways to import the data</span>
     <span class="c1"># 1- You can select the data folder</span>
-    <span class="n">input_dir</span> <span class="o">=</span> <span class="n">select_directory</span><span class="p">()</span>
+    <span class="c1"># input_dir = select_directory()</span>
     <span class="c1"># 2- or you can type it in here directly.</span>
     <span class="c1"># If you would like to use this method please, comment above line and uncomment following line.</span>
-    <span class="c1"># input_dir = &quot;../IonosphereObservation/Data/Input/&quot;</span>
+    <span class="n">input_dir</span> <span class="o">=</span> <span class="s2">&quot;../IonosphereObservation/Data/Input/&quot;</span>
 
     <span class="c1"># file name of the antenna</span>
     <span class="n">fnr</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_dir</span><span class="p">,</span><span class="s1">&#39;03-tri50_2.txt&#39;</span><span class="p">)</span>
@@ -117,6 +117,7 @@
     <span class="c1"># To obtain the phase difference at the antenna call phase_diff function.</span>
     <span class="n">phase_difference</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">phase_diff</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Phase difference in degree:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">phase_difference</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[1;31m===============================================================================</span><span class="se">\n\n\x1b</span><span class="s2">[0m&quot;</span><span class="p">)</span>
 
     <span class="c1"># To obtain the voltage call voltage function</span>
     <span class="n">voltage</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">voltage</span><span class="p">()</span>
