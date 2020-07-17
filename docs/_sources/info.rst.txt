@@ -246,7 +246,6 @@ References
 10. `Attenuation <https://en.wikipedia.org/wiki/Attenuation>`_
 11. `voltage <https://en.wikipedia.org/wiki/Voltage>`_
 12. `EM wave polarization <https://en.m.wikipedia.org/wiki/Polarization_(waves)>`_
-13. `Dipole antenna <https://en.wikipedia.org/wiki/Dipole_antenna#Short_dipole>`_
 
 
 Images

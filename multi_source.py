@@ -15,6 +15,7 @@ class multi_source(object):
     :argument:
         - radar_fn: the file name containing the values of the antenna variables
         - source_fn: the file name containing the values of the wave source variables
+        - dipole: If the source is a dipole transmitter or not?
     :attributes:
         - antenna_charc: DataFrame, Antenna variables
         - antenna_location: Array, antenna location coordinate
