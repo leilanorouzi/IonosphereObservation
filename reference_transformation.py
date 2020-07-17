@@ -103,7 +103,7 @@ def rotate_refernce(vec):
     angy = angy
     angz = angz
 
-    print('ANGELS:\n', [np.degrees(x) for x in axis_angels(vec)])
+    print('Angles:\n', [np.degrees(x) for x in axis_angels(vec)])
     rot_x = np.array([
         [1, 0, 0],
         [0, np.cos(angx), -np.sin(angx)],

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>multi_source &#8212; EM wave propagation for antenna 0.0.1 documentation</title>
+    <title>multi_source &#8212; EM wave propagation for antenna 0.0.2 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -68,36 +68,43 @@
 <span class="sd">    :methods:</span>
 <span class="sd">        - dist: to calculate the distance between two points in Cartesian coordinate</span>
 <span class="sd">        - multi_dist: to caculate the distance and the vector between each set of source-antenna. It calls dist function to calculate the distance.</span>
-<span class="sd">        - polarization: To calculate the Jones vector of the source. It gets phase angels.</span>
+<span class="sd">        - phase : To calculate the phase</span>
+<span class="sd">        - polarization: To calculate the Jones vector of the source. It gets phase angles.</span>
+<span class="sd">        - dipole_transmitter: It obtains the oscillation of far field located in the ionosphere.</span>
 <span class="sd">        - antennna_wave_received: This function calculate the field components and the phase of the field received at the antenna location, trasmitted from the source. The results are calculated at the ray path attached reference frame.</span>
 <span class="sd">        - vector_superposition: Calculate the superposition of the vecor by rotating the refernce frame from ray path attached reference frame to the original reference frame.</span>
 <span class="sd">        - voltage: Calculate the volatge of the received electric field at the antenna location.</span>
 
 <span class="sd">    :Example:</span>
 <span class="sd">    &gt;&gt;&gt; from multi_source import *</span>
-<span class="sd">    &gt;&gt;&gt; ms = multi_source(radar_fn,source_fn)</span>
+<span class="sd">    &gt;&gt;&gt; ms = multi_source(radar_fn,source_fn,dipole=True)</span>
 <span class="sd">    &gt;&gt;&gt; phase, wave = ms.antennna_wave_received()</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">radar_fn</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span><span class="n">source_fn</span><span class="p">:</span><span class="nb">str</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">radar_fn</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span><span class="n">source_fn</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">dipole</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="sd">        :param radar_fn: Antenna txt file path</span>
 <span class="sd">        :type radar_fn: str</span>
 <span class="sd">        :param source_fn: Source/s txt file path</span>
 <span class="sd">        :type source_fn: str</span>
+<span class="sd">        :param dipole: If the source is a dipole transmitter or not. The default value is false.</span>
+<span class="sd">        :type dipole: Boolean</span>
 
 <span class="sd">        &#39;&#39;&#39;</span>
+
 
         <span class="bp">self</span><span class="o">.</span><span class="n">antenna_charc</span> <span class="o">=</span> <span class="n">read_antenna</span><span class="p">(</span><span class="n">radar_fn</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">antenna_location</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">antenna_charc</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>  <span class="c1"># Taking coordinations</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">radar_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">antenna_charc</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">ref_index</span> <span class="o">=</span> <span class="n">n</span> <span class="c1"># In free space it is equal to 1 otherwise it is a matrix</span>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">dipole</span> <span class="o">=</span> <span class="n">dipole</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">source_charc</span> <span class="o">=</span> <span class="n">read_source</span><span class="p">(</span><span class="n">source_fn</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">source_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_charc</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">s_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_n</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">s_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_n</span><span class="p">)]</span>
+
+        <span class="c1"># In free space it is equal to 1 otherwise it is a matrix</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ref_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mf">80.616</span><span class="o">*</span><span class="n">n_e</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_charc</span><span class="o">.</span><span class="n">f</span><span class="o">**</span><span class="mi">2</span> <span class="p">))</span>
 
         <span class="c1"># The wavelength of the source.</span>
         <span class="c1"># self.lambda_s = c0 / (self.source_charc.f.values * (10 ** 6))</span>
@@ -119,8 +126,24 @@
 
         <span class="c1"># Source to antenna distances</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">distance</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_vec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">multi_dist</span><span class="p">()</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Distance:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">distance</span><span class="p">,</span>
-              <span class="s2">&quot;Vector:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_vec</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[1;31mDistance:</span><span class="se">\n\x1b</span><span class="s2">[0m&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">distance</span><span class="p">,</span>
+              <span class="s2">&quot;</span><span class="se">\n\x1b</span><span class="s2">[1;31mVector:</span><span class="se">\n\x1b</span><span class="s2">[0m&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_vec</span><span class="p">)</span>
+
+        <span class="c1"># traveling time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">distance</span> <span class="p">,</span> <span class="n">c0</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">ref_index</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\x1b</span><span class="s1">[1;31mTime:</span><span class="se">\n\x1b</span><span class="s1">[0m&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="se">\n\x1b</span><span class="s1">[1;31mAmplitude:</span><span class="se">\n\x1b</span><span class="s1">[0m&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_charc</span><span class="o">.</span><span class="n">A_s</span><span class="p">)</span>
+
+        <span class="c1"># Polarization parameters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">polar_stat</span> <span class="o">=</span> <span class="n">polar_stat</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha_x</span> <span class="o">=</span> <span class="n">alpha_x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha_y</span> <span class="o">=</span> <span class="n">alpha_y</span>
+
+        <span class="c1"># Diple transmitter parameters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">I0</span> <span class="o">=</span> <span class="n">I0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">theta_z</span> <span class="o">=</span> <span class="n">theta_z</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">theta_x</span> <span class="o">=</span> <span class="n">theta_x</span>
 
 <div class="viewcode-block" id="multi_source.dist"><a class="viewcode-back" href="../multi_source.html#multi_source.multi_source.dist">[docs]</a>    <span class="k">def</span> <span class="nf">dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">a</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span><span class="n">b</span><span class="p">:</span><span class="nb">list</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">float</span><span class="p">:</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -138,7 +161,8 @@
 
 <div class="viewcode-block" id="multi_source.multi_dist"><a class="viewcode-back" href="../multi_source.html#multi_source.multi_source.multi_dist">[docs]</a>    <span class="k">def</span> <span class="nf">multi_dist</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        This function calculates the distance between source/s and antenna/s and also returns a vector of source-antenna for every set of source-antenna.</span>
+<span class="sd">        This function calculates the distance between source/s and antenna/s and also returns a vector of</span>
+<span class="sd">        source-antenna for every set of source-antenna.</span>
 
 <span class="sd">        :returns:</span>
 <span class="sd">            - dist_arr: the distances from the source to the antenna</span>
@@ -160,13 +184,10 @@
                 <span class="n">sa_vec</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="n">i</span><span class="p">],</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">source_location</span><span class="p">[</span><span class="n">j</span><span class="p">,:]</span><span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">antenna_location</span><span class="p">[</span><span class="n">i</span><span class="p">,:]],</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">dist_arr</span><span class="p">,</span><span class="n">sa_vec</span></div>
 
-<div class="viewcode-block" id="multi_source.polarization"><a class="viewcode-back" href="../multi_source.html#multi_source.multi_source.polarization">[docs]</a>    <span class="k">def</span> <span class="nf">polarization</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                     <span class="n">polar_stat</span><span class="o">=</span><span class="s1">&#39;unpolarized&#39;</span><span class="p">,</span>
-                     <span class="n">alpha_x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="c1">#phase angle</span>
-                     <span class="n">alpha_y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="c1">#pahse angle</span>
-                     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+<div class="viewcode-block" id="multi_source.polarization"><a class="viewcode-back" href="../multi_source.html#multi_source.multi_source.polarization">[docs]</a>    <span class="k">def</span> <span class="nf">polarization</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        This function calculate the Jones vector of a situation. As, e^(i(a_x,a_y,0)).</span>
+<span class="sd">        The parameters are set at the parameter.py file.</span>
 
 <span class="sd">        :param polar_stat: The type of polarization. unpolarized, linear, elliptical</span>
 <span class="sd">        :type polar_stat: str</span>
@@ -177,6 +198,11 @@
 <span class="sd">        :return: The jones vector</span>
 <span class="sd">        :rtype: numpy.array</span>
 <span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="n">polar_stat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">polar_stat</span>
+        <span class="n">alpha_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha_x</span>  <span class="c1"># phase angle</span>
+        <span class="n">alpha_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha_y</span>  <span class="c1"># pahse angle</span>
+
         <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">source_n</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span><span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">polar_stat</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">==</span><span class="s1">&#39;unpolarized&#39;</span><span class="p">:</span>
@@ -206,6 +232,111 @@
                        <span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">a</span></div>
 
+<div class="viewcode-block" id="multi_source.wtkr"><a class="viewcode-back" href="../multi_source.html#multi_source.multi_source.wtkr">[docs]</a>    <span class="k">def</span> <span class="nf">wtkr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="c1"># Phase:  w*t-k.r+phi</span>
+        <span class="c1">#a=k.r</span>
+        <span class="n">w_num</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_charc</span><span class="o">.</span><span class="n">k</span>
+
+        <span class="c1"># For every antenna and source calculates k.r</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">w_num</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">]])</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radar_n</span><span class="p">)]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_n</span><span class="p">)])</span><span class="o">.</span><span class="n">T</span>
+        <span class="c1"># Convert the array to a DataFrame</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">s_columns</span><span class="p">)</span>
+
+        <span class="c1"># b=w*t</span>
+        <span class="c1"># For every source calculate temporal part of oscillation w.t</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="mi">10</span> <span class="o">**</span> <span class="mi">6</span><span class="p">)</span> <span class="o">*</span> \
+            <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">source_charc</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_n</span><span class="p">)])</span><span class="o">.</span><span class="n">T</span>
+        <span class="c1"># Convert it to a DataFrame</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">s_columns</span><span class="p">)</span>
+
+        <span class="c1"># Calculate the phase as k.r - w.t</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">a</span><span class="o">-</span><span class="n">b</span>
+        <span class="k">return</span> <span class="n">res</span></div>
+
+<div class="viewcode-block" id="multi_source.dipole_transmitter"><a class="viewcode-back" href="../multi_source.html#multi_source.multi_source.dipole_transmitter">[docs]</a>    <span class="k">def</span> <span class="nf">dipole_transmitter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        for a far feild a radiation pattern whose electric field of a half-wave dipole antenna  is given by</span>
+<span class="sd">        https://en.wikipedia.org/wiki/Dipole_antenna#Short_dipole</span>
+
+<span class="sd">        we assume that all sources are a dipole which has an angle of theta between</span>
+<span class="sd">         the direction of dipole and the z direction.</span>
+<span class="sd">        If you have another assumption you can add it to define theta for each source</span>
+
+
+<span class="sd">        :return:</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="c1"># the data frame to find the angle of eache dipoles respect to the ray path</span>
+        <span class="n">theta</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">radar_n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_n</span><span class="p">]),</span> <span class="n">columns</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">s_columns</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i_s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_n</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i_a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radar_n</span><span class="p">):</span>
+                <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_location</span><span class="p">[</span><span class="n">i_s</span><span class="p">]</span>  <span class="c1"># The location of sources</span>
+                <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">antenna_location</span><span class="p">[</span><span class="n">i_a</span><span class="p">]</span>  <span class="c1"># The location of antennas</span>
+
+                <span class="c1"># DE = DC - CE  = DC- AC sin(self.theta_x)</span>
+                <span class="c1">#               = S_y - S_z * tan(self.theta_z) * sin(self.theta_x)</span>
+                <span class="n">dy</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">theta_z</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">theta_x</span><span class="p">)</span>
+
+                <span class="c1"># AK = OD - AE  = OD - AC * cos(self.theta_x)</span>
+                <span class="c1">#               = S_x - S_z * tan(theta_z) * cos(self.theta_x)</span>
+                <span class="n">dx</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">theta_z</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">theta_x</span><span class="p">)</span>
+
+                <span class="n">p_z0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>  <span class="c1"># The cros section of dipole line and XY plane</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;XY plane intesection:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">p_z0</span><span class="p">)</span>
+                <span class="n">dipole_line</span> <span class="o">=</span> <span class="n">p_z0</span> <span class="o">-</span> <span class="n">s</span>  <span class="c1"># Dipole vector</span>
+
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Dipole vector:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">dipole_line</span><span class="p">)</span>
+
+                <span class="c1"># the angle between the dipole direction and ray path</span>
+                <span class="c1"># theta = arcsin( a.b / |a| |b|)</span>
+
+                <span class="c1"># inner product of dipole vector and the source-antenna vector</span>
+                <span class="n">arcsin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inner</span><span class="p">(</span><span class="n">dipole_line</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_vec</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i_a</span><span class="p">,</span> <span class="n">i_s</span><span class="p">])</span>
+                <span class="c1"># |a|= √ (a.a)</span>
+                <span class="n">a_len</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">dipole_line</span><span class="p">))</span>
+                <span class="c1"># |b|= √ (b.b)</span>
+                <span class="n">b_len</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_vec</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i_a</span><span class="p">,</span> <span class="n">i_s</span><span class="p">]))</span>
+                <span class="n">theta</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i_a</span><span class="p">,</span> <span class="n">i_s</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="n">arcsin</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">a_len</span> <span class="o">*</span> <span class="n">b_len</span><span class="p">))</span>
+
+        <span class="n">e_theta</span> <span class="o">=</span> <span class="n">eta</span> <span class="o">*</span> <span class="n">I0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span> \
+                  <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">distance</span><span class="p">)</span>
+
+        <span class="n">phase</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span><span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">[1;31mAangles of dipoles:</span><span class="se">\n\x1b</span><span class="s1">[0m&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span>
+        <span class="c1"># print(&#39;\x1b[1;31mDipole signals:\x1b[0m\n&#39;,e_theta)</span>
+
+        <span class="k">return</span> <span class="n">e_theta</span><span class="p">,</span> <span class="n">phase</span></div>
+
+<div class="viewcode-block" id="multi_source.phase_diff"><a class="viewcode-back" href="../multi_source.html#multi_source.multi_source.phase_diff">[docs]</a>    <span class="k">def</span> <span class="nf">phase_diff</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Calculates the phase difference at antenna. Takes the phase part from antennna_wave_received function and for each antenna add them up.</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">            - The phase difference of received waves at every antenna</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dipole</span> <span class="p">:</span>
+            <span class="n">_</span><span class="p">,</span><span class="n">dipole_transmitter_pahse</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dipole_transmitter</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">dipole_transmitter</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1">#phi =atan2 (Im(z),Re(z))</span>
+        <span class="c1">#z = r e^(i*phi)</span>
+        <span class="c1"># the final phase = phase from k.r-wt term + phase from dipole transmitter</span>
+        <span class="n">p_</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wtkr</span><span class="p">()</span><span class="o">+</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="n">dipole_transmitter_pahse</span><span class="p">)</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">distance</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">p_</span><span class="p">)</span>
+
+        <span class="c1"># Add all phases from all sources to find the total phase at every antenna</span>
+        <span class="n">phase_diff</span> <span class="o">=</span> <span class="n">p_</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">[1;31mPhase differences at the antenna locations (rad):</span><span class="se">\x1b</span><span class="s1">[0m </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">phase_diff</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">phase_diff</span></div>
+
 
 <div class="viewcode-block" id="multi_source.antennna_wave_received"><a class="viewcode-back" href="../multi_source.html#multi_source.multi_source.antennna_wave_received">[docs]</a>    <span class="k">def</span> <span class="nf">antennna_wave_received</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span><span class="p">(</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -224,11 +355,12 @@
 
 <span class="sd">            -wave: Dataframe, the received wave from each source at the location of antenna</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-
-
+        <span class="c1"># from PIL import Image</span>
+        <span class="c1"># myImage = Image.open(&quot;sphinx/_static/dipole_3d_annotated.png&quot;);</span>
+        <span class="c1"># myImage.show();</span>
 
         <span class="c1"># traveling time</span>
-        <span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">distance</span> <span class="o">/</span> <span class="p">(</span><span class="n">c0</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">ref_index</span><span class="p">)</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span>
 
         <span class="c1"># Amplitudes</span>
         <span class="c1">#     Amp[:,i] = [Amp0[i],0,0]  # plane wave traveling along z direction</span>
@@ -238,57 +370,38 @@
         <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_n</span><span class="p">):</span>
             <span class="n">Amp</span><span class="p">[:,</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_charc</span><span class="o">.</span><span class="n">A_s</span><span class="p">[</span><span class="n">s</span><span class="p">]</span>
 
-
-        <span class="c1"># Phase:  w*t-k.r+phi</span>
-        <span class="c1">#a=k.r</span>
-        <span class="n">w_num</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_charc</span><span class="o">.</span><span class="n">k</span>
-
-        <span class="c1"># For every antenna and source calculates k.r</span>
-        <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">w_num</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">]])</span>
-            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radar_n</span><span class="p">)]</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_n</span><span class="p">)])</span><span class="o">.</span><span class="n">T</span>
-        <span class="c1"># Convert the array to a DataFrame</span>
-        <span class="n">a</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">s_columns</span><span class="p">)</span>
-
-        <span class="c1"># b=w*t</span>
-        <span class="c1"># For every source calculate temporal part of oscillation w.t</span>
-        <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="mi">10</span> <span class="o">**</span> <span class="mi">6</span><span class="p">)</span> <span class="o">*</span> \
-            <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">source_charc</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">t</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_n</span><span class="p">)])</span><span class="o">.</span><span class="n">T</span>
-        <span class="c1"># Convert it to a DataFrame</span>
-        <span class="n">b</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">s_columns</span><span class="p">)</span>
-
-        <span class="c1"># Calculate the phase as k.r - w.t</span>
-        <span class="n">phase</span> <span class="o">=</span> <span class="n">a</span><span class="o">-</span><span class="n">b</span>
+        <span class="c1">#calculate the phase</span>
+        <span class="n">phase</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wtkr</span><span class="p">()</span>
 
         <span class="c1"># Calculate the oscillation as: exp i(k.r-wt)</span>
         <span class="n">osc</span> <span class="o">=</span> <span class="n">phase</span><span class="o">.</span><span class="n">applymap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">cmath</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">x</span><span class="p">))</span>
+        <span class="c1"># consider a dipole source in the ionosphere</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dipole</span><span class="p">:</span>
+            <span class="n">osc_dipole</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">osc</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dipole_transmitter</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span> <span class="n">osc_dipole</span> <span class="o">=</span> <span class="n">osc</span>
 
         <span class="c1"># polarization part</span>
         <span class="c1"># Obtain the jones vector by running polarization function</span>
-        <span class="n">Jones_vec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">polarization</span><span class="p">(</span><span class="n">polar_stat</span><span class="o">=</span><span class="s1">&#39;Unpolarized&#39;</span><span class="p">,</span>
-                                      <span class="n">alpha_x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                                      <span class="n">alpha_y</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">Jones_vec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">polarization</span><span class="p">()</span>
 
-        <span class="nb">print</span><span class="p">(</span>
-              <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Time:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span>
-              <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Amplitude:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">Amp</span><span class="p">,</span>
-              <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Phase:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">phase</span><span class="p">,</span>
-              <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Oscillation:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">osc</span><span class="p">,</span>
-              <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Polarization:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">Jones_vec</span><span class="p">)</span>
+        <span class="c1"># print(</span>
+        <span class="c1">#       &#39;\nPhase, no polarization, no dipole:\n&#39;,phase,</span>
+        <span class="c1">#       &#39;\nOscillation:\n&#39;,osc,</span>
+        <span class="c1">#       &#39;\nPolarization:\n&#39;,Jones_vec)</span>
 
         <span class="c1"># Make an empty DataFrame for result of the received field</span>
         <span class="n">wave</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">radar_n</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">source_n</span><span class="p">]),</span><span class="n">columns</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">s_columns</span><span class="p">)</span>
+        <span class="n">phase_final</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">radar_n</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">source_n</span><span class="p">]),</span><span class="n">columns</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">s_columns</span><span class="p">)</span>
+
         <span class="c1"># Calculate the wave equation for every set of antenna-source</span>
         <span class="c1"># wave= amp*real(Jones_vec*osc) , plane wave</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_n</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radar_n</span><span class="p">):</span>
-                <span class="n">non_amp</span> <span class="o">=</span> <span class="n">osc</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">Jones_vec</span><span class="p">[</span><span class="n">j</span><span class="p">,:]</span>
+                <span class="n">non_amp</span> <span class="o">=</span> <span class="n">osc_dipole</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">Jones_vec</span><span class="p">[</span><span class="n">j</span><span class="p">,:]</span>
                 <span class="n">w</span> <span class="o">=</span> <span class="p">[</span><span class="n">Amp</span><span class="p">[</span><span class="n">j</span><span class="p">,:]</span><span class="o">*</span> <span class="n">non_amp</span><span class="o">.</span><span class="n">real</span><span class="p">]</span>
                 <span class="n">wave</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="n">i</span><span class="p">],</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">[1;31mReceived waves from each source at the antenna locations:</span><span class="se">\x1b</span><span class="s1">[0m </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">wave</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">phase</span><span class="p">,</span><span class="n">wave</span></div>
+        <span class="k">return</span> <span class="n">wave</span></div>
         <span class="c1"># pass</span>
 
 <div class="viewcode-block" id="multi_source.vector_superposition"><a class="viewcode-back" href="../multi_source.html#multi_source.multi_source.vector_superposition">[docs]</a>    <span class="k">def</span> <span class="nf">vector_superposition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">w</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">list</span><span class="p">:</span>
@@ -327,24 +440,6 @@
 
         <span class="k">return</span> <span class="n">total_waves</span></div>
 
-<div class="viewcode-block" id="multi_source.phase_diff"><a class="viewcode-back" href="../multi_source.html#multi_source.multi_source.phase_diff">[docs]</a>    <span class="k">def</span> <span class="nf">phase_diff</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Calculates the phase difference at antenna. Takes the phase part from antennna_wave_received function and for each antenna add them up.</span>
-
-<span class="sd">        :return:</span>
-<span class="sd">            - The phase difference of received waves at every antenna</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="c1">#phi =atan2 (Im(z),Re(z))</span>
-        <span class="c1">#z = r e^(i*phi)</span>
-        <span class="n">p_</span><span class="p">,</span> <span class="n">w_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">antennna_wave_received</span><span class="p">()</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">p_</span><span class="p">)</span>
-
-        <span class="c1"># Add all phases from all sources to find the total phase at every antenna</span>
-        <span class="n">phase_diff</span> <span class="o">=</span> <span class="n">p_</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">[1;31mPhase differences at the antenna locations (rad):</span><span class="se">\x1b</span><span class="s1">[0m </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">phase_diff</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">phase_diff</span></div>
 
 
 <div class="viewcode-block" id="multi_source.voltage"><a class="viewcode-back" href="../multi_source.html#multi_source.multi_source.voltage">[docs]</a>    <span class="k">def</span> <span class="nf">voltage</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
@@ -355,7 +450,7 @@
         <span class="n">total_voltage</span><span class="o">=</span><span class="mi">0</span>
         <span class="n">l</span> <span class="o">=</span> <span class="mf">3.8</span>     <span class="c1">#antenna length</span>
         <span class="n">antenna_length</span> <span class="o">=</span> <span class="p">[</span><span class="n">l</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">p</span><span class="p">,</span><span class="n">w_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">antennna_wave_received</span><span class="p">()</span>
+        <span class="n">w_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">antennna_wave_received</span><span class="p">()</span>
 
         <span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vector_superposition</span><span class="p">(</span><span class="n">w_</span><span class="p">)</span>
 
@@ -372,7 +467,7 @@
     <span class="c1">#     # calculate the attenuation of the wave at the antenna location</span>
     <span class="c1">#     #Taking the real part of the waveform at the antenna location</span>
     <span class="c1">#     dist, _ = self.multi_dist()</span>
-    <span class="c1">#     _ , w = self.antennna_wave_received()</span>
+    <span class="c1">#     w = self.antennna_wave_received()</span>
     <span class="c1">#     poynting_vector = w.applymap(lambda x: np.dot(x,np.conjugate(x)*0.5/eta).real)</span>
     <span class="c1">#     # print(&#39;\x1b[1;34mWave_vec : \n\x1b[0m&#39;,poynting_vector)</span>
     <span class="c1">#</span>

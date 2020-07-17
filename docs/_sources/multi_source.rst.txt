@@ -6,6 +6,8 @@ This the main class to calculate the properties of wave transmitted from the sou
 :argument:
     - radar_fn: the file name containing the values of the antenna variables
     - source_fn: the file name containing the values of the wave source variables
+
+    - dipole: To define if the source is a dipole transmitter or not.
 :attributes:
     - antenna_charc: DataFrame, Antenna variables
     - antenna_location: Array, antenna location coordinate
@@ -19,15 +21,17 @@ This the main class to calculate the properties of wave transmitted from the sou
     - source_location: Array, the location of wave sources
 
     - distance: DataFrame, the distance between source/s and antennas
-    - path_vec: DataFrame, the vecors of path from anttena to source/s
+    - path_vec: DataFrame, the vectors of path from antenna to source/s
 
 :methods:
     - dist: to calculate the distance between two points in Cartesian coordinate
-    - multi_dist: to caculate the distance and the vector between each set of source-antenna. It calls dist function to calculate the distance.
-    - polarization: To calculate the Jones vector of the source. It gets phase angels.
-    - antennna_wave_received: This function calculate the field components and the phase of the field received at the antenna location, trasmitted from the source. The results are calculated at the ray path attached reference frame.
-    - vector_superposition: Calculate the superposition of the vecor by rotating the refernce frame from ray path attached reference frame to the original reference frame.
-    - voltage: Calculate the volatge of the received electric field at the antenna location.
+    - multi_dist: to calculate the distance and the vector between each set of source-antenna. It calls dist function to calculate the distance.
+    - phase : To calculate the phase
+    - polarization: To calculate the Jones vector of the source. It gets phase angles.
+    - dipole_transmitter: It obtains the oscillation of far field located in the ionosphere.
+    - antennna_wave_received: This function calculate the field components and the phase of the field received at the antenna location, transmitted from the source. The results are calculated at the ray path attached reference frame.
+    - vector_superposition: Calculate the superposition of the vector by rotating the reference frame from ray path attached reference frame to the original reference frame.
+    - voltage: Calculate the voltage of the received electric field at the antenna location.
 
 :Example:
 >>> from multi_source import *

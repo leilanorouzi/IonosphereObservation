@@ -1,7 +1,7 @@
 Main code
 =========
 
-The main code :py:mod:`multi_source_receieved_waves`  is the amin code. It runs other modules and plot the graphics.
+The main code :py:mod:`multi_source_receieved_waves` runs other modules and plot the graphics.
 After importing input data, you can call :py:class:`visualization` to plot or :py:class:`multi_source`
 to calculate different results.
 

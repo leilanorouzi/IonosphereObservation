@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>reading_files &#8212; EM wave propagation for antenna 0.0.1 documentation</title>
+    <title>reading_files &#8212; EM wave propagation for antenna 0.0.2 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -110,6 +110,31 @@
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">[1;33mSource variables values:</span><span class="se">\x1b</span><span class="s1">[0m </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">source_df</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">source_df</span></div>
 
+<div class="viewcode-block" id="read_ionosphere"><a class="viewcode-back" href="../reading_files.html#reading_files.read_ionosphere">[docs]</a><span class="k">def</span> <span class="nf">read_ionosphere</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="c1"># the name of the columns</span>
+    <span class="n">column_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">,</span><span class="s1">&#39;N_e&#39;</span><span class="p">,</span><span class="s1">&#39;Ne_to_NmF2&#39;</span><span class="p">,</span><span class="s1">&#39;hmF2&#39;</span><span class="p">,</span><span class="s1">&#39;hmF1&#39;</span><span class="p">,</span><span class="s1">&#39;hmE&#39;</span><span class="p">,</span><span class="s1">&#39;hmD&#39;</span><span class="p">,</span><span class="s1">&#39;foF2&#39;</span><span class="p">,</span><span class="s1">&#39;foF1&#39;</span><span class="p">,</span><span class="s1">&#39;foE&#39;</span><span class="p">,</span><span class="s1">&#39;foD&#39;</span><span class="p">]</span>
+
+    <span class="c1"># To open the file</span>
+    <span class="n">read</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>   <span class="c1"># The number of the row of the file</span>
+
+    <span class="c1"># An empty data farme to be filled with the antenna values regarding to the column names</span>
+    <span class="n">iono_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="n">column_names</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">read</span><span class="p">:</span>
+        <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="mi">43</span><span class="o">&lt;</span> <span class="n">i</span>  <span class="p">:</span>  <span class="c1"># The lines related to the antenna location</span>
+            <span class="c1">#extracting values from the line</span>
+            <span class="n">newline</span> <span class="o">=</span> <span class="n">read_line</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="n">column_names</span><span class="p">)</span>
+
+            <span class="c1">#To fill the data frame</span>
+            <span class="n">iono_df</span> <span class="o">=</span> <span class="n">iono_df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newline</span><span class="p">,</span><span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+    <span class="n">read</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">[1;33mIonosphere variables values:</span><span class="se">\x1b</span><span class="s1">[0m </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">iono_df</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">iono_df</span></div>
 
 
 <span class="c1"># fn = &#39;../IonosphereObservation/Data/Input/03-tri50_2.txt&#39;</span>

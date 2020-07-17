@@ -1,0 +1,6 @@
+.. _dipole_video_label:
+
+.. Image:: _static/dipole_3d_clip.gif
+    :align: right
+    :height: 500
+    :width: 500

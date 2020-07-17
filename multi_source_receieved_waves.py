@@ -43,19 +43,19 @@ def main():
     # -------------------------------------------------
     # Getting input data. There are 2 ways to import the data
     # 1- You can select the data folder
-    input_dir = select_directory()
+    # input_dir = select_directory()
     # 2- or you can type it in here directly.
     # If you would like to use this method please, comment above line and uncomment following line.
-    # input_dir = "../IonosphereObservation/Data/Input/"
+    input_dir = "../IonosphereObservation/Data/Input/"
 
     # file name of the antenna
-    fnr = input_dir + '03-tri50_2.txt'
+    fnr = os.path.join(input_dir,'03-tri50_2.txt')
     # file name of the source
-    fns = input_dir + 'source2.txt'
+    fns = os.path.join(input_dir, 'source2.txt')
 
     # -------------------------------------------------
     # to call the class
-    ms = multi_source(radar_fn=fnr, source_fn=fns)
+    ms = multi_source(radar_fn=fnr, source_fn=fns, dipole= True)
 
     #-------------------------------------------------
     # Visualization
@@ -72,19 +72,20 @@ def main():
 
     # To obtain waves at the antenna
     # run antenna_wave_received function to calculate the wave results as a data frame for all sources and antennas
-    _, w = ms.antennna_wave_received()
+    w = ms.antennna_wave_received()
     # To obtain the total result for each antenna, call the vector_superposition function.
     # It calculate received waves from all sources for each antenna in the original reference frame
     # and add their components up.
     waves = ms.vector_superposition(w)
+    # print('\x1b[1;31mReceived waves from each source at the antenna locations:\x1b[0m \n', waves)
 
     # To obtain the phase difference at the antenna call phase_diff function.
     phase_difference = ms.phase_diff()
     print('\nPhase difference in degree:\n', np.degrees(phase_difference).round(3))
+    print("\x1b[1;31m===============================================================================\n\n\x1b[0m")
 
     # To obtain the voltage call voltage function
     voltage = ms.voltage()
-
 
     # -------------------------------------------------
     # The end

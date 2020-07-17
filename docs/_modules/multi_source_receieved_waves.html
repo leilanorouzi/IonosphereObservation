@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>multi_source_receieved_waves &#8212; EM wave propagation for antenna 0.0.1 documentation</title>
+    <title>multi_source_receieved_waves &#8212; EM wave propagation for antenna 0.0.2 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -84,13 +84,13 @@
     <span class="c1"># input_dir = &quot;../IonosphereObservation/Data/Input/&quot;</span>
 
     <span class="c1"># file name of the antenna</span>
-    <span class="n">fnr</span> <span class="o">=</span> <span class="n">input_dir</span> <span class="o">+</span> <span class="s1">&#39;03-tri50_2.txt&#39;</span>
+    <span class="n">fnr</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_dir</span><span class="p">,</span><span class="s1">&#39;03-tri50_2.txt&#39;</span><span class="p">)</span>
     <span class="c1"># file name of the source</span>
-    <span class="n">fns</span> <span class="o">=</span> <span class="n">input_dir</span> <span class="o">+</span> <span class="s1">&#39;source2.txt&#39;</span>
+    <span class="n">fns</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_dir</span><span class="p">,</span> <span class="s1">&#39;source2.txt&#39;</span><span class="p">)</span>
 
     <span class="c1"># -------------------------------------------------</span>
     <span class="c1"># to call the class</span>
-    <span class="n">ms</span> <span class="o">=</span> <span class="n">multi_source</span><span class="p">(</span><span class="n">radar_fn</span><span class="o">=</span><span class="n">fnr</span><span class="p">,</span> <span class="n">source_fn</span><span class="o">=</span><span class="n">fns</span><span class="p">)</span>
+    <span class="n">ms</span> <span class="o">=</span> <span class="n">multi_source</span><span class="p">(</span><span class="n">radar_fn</span><span class="o">=</span><span class="n">fnr</span><span class="p">,</span> <span class="n">source_fn</span><span class="o">=</span><span class="n">fns</span><span class="p">,</span> <span class="n">dipole</span><span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 
     <span class="c1">#-------------------------------------------------</span>
     <span class="c1"># Visualization</span>
@@ -107,11 +107,12 @@
 
     <span class="c1"># To obtain waves at the antenna</span>
     <span class="c1"># run antenna_wave_received function to calculate the wave results as a data frame for all sources and antennas</span>
-    <span class="n">_</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">antennna_wave_received</span><span class="p">()</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">antennna_wave_received</span><span class="p">()</span>
     <span class="c1"># To obtain the total result for each antenna, call the vector_superposition function.</span>
     <span class="c1"># It calculate received waves from all sources for each antenna in the original reference frame</span>
     <span class="c1"># and add their components up.</span>
     <span class="n">waves</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">vector_superposition</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="c1"># print(&#39;\x1b[1;31mReceived waves from each source at the antenna locations:\x1b[0m \n&#39;, waves)</span>
 
     <span class="c1"># To obtain the phase difference at the antenna call phase_diff function.</span>
     <span class="n">phase_difference</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">phase_diff</span><span class="p">()</span>
@@ -119,7 +120,6 @@
 
     <span class="c1"># To obtain the voltage call voltage function</span>
     <span class="n">voltage</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">voltage</span><span class="p">()</span>
-
 
     <span class="c1"># -------------------------------------------------</span>
     <span class="c1"># The end</span>

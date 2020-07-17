@@ -156,6 +156,62 @@ In linear polarization, the fields oscillate in a single direction and phase ang
     :height: 250
     :width: 200
 
+
+Stage 2
+*******
+The source of the electromagnetic wave from the ionosphere can be assumed as a
+`dipole transmitter <https://en.wikipedia.org/wiki/Dipole_antenna#Short_dipole>`_.
+The transmitter will be far from the receiver, therefore we can consider it as a far field dipole.
+The electric field of far dipole transmitter can be calculated from:
+
+.. math:: E_\theta=\frac{\zeta_0 I_0}{2 \pi r} \frac{\cos(\frac{\pi}{2}\cos(\theta))}{\sin(\theta)} \sin(wt-kr)
+
+Where :math:`I_0` is the dipole current, :math:`\zeta_0` is the impedance of the environment and :math:`\theta` is the angle between the dipole direction and ray path.
+The value of received signals at the antennas depends on the direction of the current in the dipole respect to the ray path.
+To simplify the situation, we assumed that sources are come from the dipole transmitter antennas that makes :math:`\theta_x` and :math:`\theta_z` angles with :math:`x` and :math:`z` respectively.
+In the figure :numref:`dipole_plot` a schematic of the dipole and receiver antenna is displayed and 3D of the situation can be found in a :ref:`short video <dipole_video_label>`.
+
+.. _dipole_plot:
+
+.. figure:: _static/dipole_3d_annotated.png
+    :align: center
+    :alt: Dipole sources and the antenna
+    :scale: 50%
+
+    The geometry of the dipole transmitter and receiver antenna
+
+
+Imagine a dipole source is located at :math:`S(x_S, y_S, z_S)` and antenenna at :math:`R(x_R, y_R, z_R)`. The intersection of dipole direction and XY plane is a point, :math:`A(x_A,y_A,z_A)`, where
+:math:`z_A =0`.
+Values of :math:`x_A` and :math:`y_A` are how much the location deviated from :math:`S` and can be denoted as :math:`dx` and :math:`dy` respectively.
+
+.. math::
+    &\vec{SC} = z_S&\\
+    &\tan(\theta_z) &= \frac{\vec{AC}}{\vec{SC}}= \frac{\vec{AC}}{z_S} \implies \vec{AC}= z_S \tan(\theta_z)\\
+    &\sin(\theta_x) &= \frac{\vec{CE}}{\vec{AC}} =  \implies \vec{CE} = \vec{AC} \sin(\theta_x) = z_S \tan(\theta_z) \sin(\theta_x)\\
+    &\vec{CE} &= \vec{DC} + \vec{DE} \implies dy = \vec{DE} = \vec{DC} + \vec{CE}\\
+    &\vec{CE}= y_S &\\
+    &&\implies y_A = dy = y_S - z_S \tan(\theta_z) \sin(\theta_x)\\
+
+.. math::
+    &\cos(\theta_x)&= \frac{\vec{AE}}{\vec{AC}}  \implies \vec{AE}= x_S \tan(\theta_z) \cos(\theta_x)\\
+    &\vec{AE}& = \vec{AK} + \vec{KE} = \vec{AK} + \vec{OD} \implies dx = \vec{AK} = \vec{OD} - \vec{AE} \\
+    &\vec{OD} = x_S & \\
+    &&\implies x_A = dx = x_S - z_S \tan(theta_z) \cos(\theta_x)
+
+Having the coordinates of ponit :math:`A(x_A,y_A,z_A)`, the angle between the direction of dipole and the ray path :math:`\vec{SR}` can be obtained as follow:
+
+.. math::
+    &\vec{AS} = \vec{S} - \vec{A} \\
+    &\theta = \arcsin(\frac{\vec{AS} \cdot \vec{SR}}{|\vec{AS}| |\vec{SR}|})
+  :label: eq:dipole_angle
+
+Then the first part of dipole transmitter electric field can be added to the equation :eq:`eq:wave_form` as:
+
+.. math::
+  \mathbf{E}(\mathbf{r},t)= \mathbf{E_0} \frac{\zeta_0 I_0}{2 \pi r} \frac{\cos(\frac{\pi}{2}\cos(\theta))}{\sin(\theta)} \Re \left\{ e^{i(\mathbf{k}\cdot\mathbf{r}-\omega t )}\right\}
+  :label: eq:dipole_wave_form
+
 Code
 ++++
 
@@ -169,12 +225,12 @@ ________________
 - **multi_source_received_waves**: The main program file.
 - **visualization**: Include codes for plotting and visualization purposes.
 
+
+
+
 How to run?
 ___________
 Please copy and past all files (mentioned in the file description) to a directory. Then, in that directory, you can run the main program by typing `python multi_source_receieved_waves.py`.
-
-
-
 
 References
 **********
@@ -190,6 +246,7 @@ References
 10. `Attenuation <https://en.wikipedia.org/wiki/Attenuation>`_
 11. `voltage <https://en.wikipedia.org/wiki/Voltage>`_
 12. `EM wave polarization <https://en.m.wikipedia.org/wiki/Polarization_(waves)>`_
+13. `Dipole antenna <https://en.wikipedia.org/wiki/Dipole_antenna#Short_dipole>`_
 
 
 Images

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>multi_source class &#8212; EM wave propagation for antenna 0.0.1 documentation</title>
+    <title>multi_source class &#8212; EM wave propagation for antenna 0.0.2 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
@@ -42,6 +42,7 @@
 <dd class="field-odd"><ul class="simple">
 <li><p>radar_fn: the file name containing the values of the antenna variables</p></li>
 <li><p>source_fn: the file name containing the values of the wave source variables</p></li>
+<li><p>dipole: To define if the source is a dipole transmitter or not.</p></li>
 </ul>
 </dd>
 <dt class="field-even">attributes</dt>
@@ -55,17 +56,19 @@
 <li><p>s_columns: List, the header of the column name for creating the DataFrame</p></li>
 <li><p>source_location: Array, the location of wave sources</p></li>
 <li><p>distance: DataFrame, the distance between source/s and antennas</p></li>
-<li><p>path_vec: DataFrame, the vecors of path from anttena to source/s</p></li>
+<li><p>path_vec: DataFrame, the vectors of path from antenna to source/s</p></li>
 </ul>
 </dd>
 <dt class="field-odd">methods</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p>dist: to calculate the distance between two points in Cartesian coordinate</p></li>
-<li><p>multi_dist: to caculate the distance and the vector between each set of source-antenna. It calls dist function to calculate the distance.</p></li>
-<li><p>polarization: To calculate the Jones vector of the source. It gets phase angels.</p></li>
-<li><p>antennna_wave_received: This function calculate the field components and the phase of the field received at the antenna location, trasmitted from the source. The results are calculated at the ray path attached reference frame.</p></li>
-<li><p>vector_superposition: Calculate the superposition of the vecor by rotating the refernce frame from ray path attached reference frame to the original reference frame.</p></li>
-<li><p>voltage: Calculate the volatge of the received electric field at the antenna location.</p></li>
+<li><p>multi_dist: to calculate the distance and the vector between each set of source-antenna. It calls dist function to calculate the distance.</p></li>
+<li><p>phase : To calculate the phase</p></li>
+<li><p>polarization: To calculate the Jones vector of the source. It gets phase angles.</p></li>
+<li><p>dipole_transmitter: It obtains the oscillation of far field located in the ionosphere.</p></li>
+<li><p>antennna_wave_received: This function calculate the field components and the phase of the field received at the antenna location, transmitted from the source. The results are calculated at the ray path attached reference frame.</p></li>
+<li><p>vector_superposition: Calculate the superposition of the vector by rotating the reference frame from ray path attached reference frame to the original reference frame.</p></li>
+<li><p>voltage: Calculate the voltage of the received electric field at the antenna location.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Example</dt>
@@ -78,7 +81,7 @@
 </div>
 <span class="target" id="module-multi_source"></span><dl class="class">
 <dt id="multi_source.multi_source">
-<em class="property">class </em><code class="sig-prename descclassname">multi_source.</code><code class="sig-name descname">multi_source</code><span class="sig-paren">(</span><em class="sig-param">radar_fn: str</em>, <em class="sig-param">source_fn: str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/multi_source.html#multi_source"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#multi_source.multi_source" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">multi_source.</code><code class="sig-name descname">multi_source</code><span class="sig-paren">(</span><em class="sig-param">radar_fn: str</em>, <em class="sig-param">source_fn: str</em>, <em class="sig-param">dipole=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/multi_source.html#multi_source"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#multi_source.multi_source" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Argument</dt>
@@ -105,7 +108,9 @@
 <dd class="field-odd"><ul class="simple">
 <li><p>dist: to calculate the distance between two points in Cartesian coordinate</p></li>
 <li><p>multi_dist: to caculate the distance and the vector between each set of source-antenna. It calls dist function to calculate the distance.</p></li>
-<li><p>polarization: To calculate the Jones vector of the source. It gets phase angels.</p></li>
+<li><p>phase : To calculate the phase</p></li>
+<li><p>polarization: To calculate the Jones vector of the source. It gets phase angles.</p></li>
+<li><p>dipole_transmitter: It obtains the oscillation of far field located in the ionosphere.</p></li>
 <li><p>antennna_wave_received: This function calculate the field components and the phase of the field received at the antenna location, trasmitted from the source. The results are calculated at the ray path attached reference frame.</p></li>
 <li><p>vector_superposition: Calculate the superposition of the vecor by rotating the refernce frame from ray path attached reference frame to the original reference frame.</p></li>
 <li><p>voltage: Calculate the volatge of the received electric field at the antenna location.</p></li>
@@ -115,7 +120,7 @@
 <dd class="field-even"><p></p></dd>
 </dl>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">multi_source</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ms</span> <span class="o">=</span> <span class="n">multi_source</span><span class="p">(</span><span class="n">radar_fn</span><span class="p">,</span><span class="n">source_fn</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ms</span> <span class="o">=</span> <span class="n">multi_source</span><span class="p">(</span><span class="n">radar_fn</span><span class="p">,</span><span class="n">source_fn</span><span class="p">,</span><span class="n">dipole</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">phase</span><span class="p">,</span> <span class="n">wave</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">antennna_wave_received</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -143,6 +148,23 @@ Oscillation part contains the phase.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="multi_source.multi_source.dipole_transmitter">
+<code class="sig-name descname">dipole_transmitter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/multi_source.html#multi_source.dipole_transmitter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#multi_source.multi_source.dipole_transmitter" title="Permalink to this definition">¶</a></dt>
+<dd><p>for a far feild a radiation pattern whose electric field of a half-wave dipole antenna  is given by
+<a class="reference external" href="https://en.wikipedia.org/wiki/Dipole_antenna#Short_dipole">https://en.wikipedia.org/wiki/Dipole_antenna#Short_dipole</a></p>
+<dl class="simple">
+<dt>we assume that all sources are a dipole which has an angle of theta between</dt><dd><p>the direction of dipole and the z direction.</p>
+</dd>
+</dl>
+<p>If you have another assumption you can add it to define theta for each source</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="multi_source.multi_source.dist">
 <code class="sig-name descname">dist</code><span class="sig-paren">(</span><em class="sig-param">a: list</em>, <em class="sig-param">b: list</em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/multi_source.html#multi_source.dist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#multi_source.multi_source.dist" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function calculates the distance between two points</p>
@@ -165,7 +187,8 @@ Oscillation part contains the phase.</p>
 <dl class="method">
 <dt id="multi_source.multi_source.multi_dist">
 <code class="sig-name descname">multi_dist</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/multi_source.html#multi_source.multi_dist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#multi_source.multi_source.multi_dist" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function calculates the distance between source/s and antenna/s and also returns a vector of source-antenna for every set of source-antenna.</p>
+<dd><p>This function calculates the distance between source/s and antenna/s and also returns a vector of
+source-antenna for every set of source-antenna.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p><ul class="simple">
@@ -200,8 +223,9 @@ Oscillation part contains the phase.</p>
 
 <dl class="method">
 <dt id="multi_source.multi_source.polarization">
-<code class="sig-name descname">polarization</code><span class="sig-paren">(</span><em class="sig-param">polar_stat='unpolarized'</em>, <em class="sig-param">alpha_x=0</em>, <em class="sig-param">alpha_y=0</em><span class="sig-paren">)</span> &#x2192; numpy.array<a class="reference internal" href="_modules/multi_source.html#multi_source.polarization"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#multi_source.multi_source.polarization" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function calculate the Jones vector of a situation. As, e^(i(a_x,a_y,0)).</p>
+<code class="sig-name descname">polarization</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; numpy.array<a class="reference internal" href="_modules/multi_source.html#multi_source.polarization"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#multi_source.multi_source.polarization" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function calculate the Jones vector of a situation. As, e^(i(a_x,a_y,0)).
+The parameters are set at the parameter.py file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -244,6 +268,11 @@ add them up to calculate the total waves from all sources.</p>
 <dd><p>multiplies the total electric field to the length of the of antenna in each direction
 :return: The voltage at the antenna</p>
 </dd></dl>
+
+<dl class="method">
+<dt id="multi_source.multi_source.wtkr">
+<code class="sig-name descname">wtkr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/multi_source.html#multi_source.wtkr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#multi_source.multi_source.wtkr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
