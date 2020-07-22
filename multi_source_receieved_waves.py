@@ -6,7 +6,7 @@ import numpy as np
 from multi_source import *
 from visualization import *
 import os
-# import tkinter as tk
+import sys
 from tkinter import Tk
 from tkinter import filedialog
 
@@ -46,7 +46,10 @@ def main():
     # input_dir = select_directory()
     # 2- or you can type it in here directly.
     # If you would like to use this method please, comment above line and uncomment following line.
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
     input_dir = "../IonosphereObservation/Data/Input/"
+
+
 
     # file name of the antenna
     fnr = os.path.join(input_dir,'03-tri50_2.txt')
