@@ -34,15 +34,21 @@
             
   <h1>Source code for reading_files</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="c1"># import numpy as np</span>
-
 
 <div class="viewcode-block" id="convert_to_int"><a class="viewcode-back" href="../reading_files.html#reading_files.convert_to_int">[docs]</a><span class="k">def</span> <span class="nf">convert_to_int</span><span class="p">(</span><span class="n">lists</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
-    <span class="c1"># converts a list of string to numbers</span>
-    <span class="c1">#el: the element in the list</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>    <span class="c1"># The result to be returned</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    converts a list of string to numbers</span>
+
+<span class="sd">    :param lists: the element in the list</span>
+<span class="sd">    :param n:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="c1"># The result to be returned</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
+
     <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">lists</span><span class="p">:</span>
-        <span class="c1">#To check the element is a number or alist of numbers</span>
+        <span class="c1">#To check the element is a number or a list of numbers</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span><span class="o">&lt;</span><span class="n">n</span><span class="p">:</span>
             <span class="k">if</span> <span class="p">(</span><span class="n">el</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">!=</span><span class="s1">&#39;[&#39;</span><span class="p">):</span>
                 <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="nb">float</span><span class="p">(</span><span class="n">el</span><span class="p">))</span>
@@ -52,7 +58,13 @@
 
     <span class="k">return</span> <span class="n">res</span></div>
 
-<div class="viewcode-block" id="read_line"><a class="viewcode-back" href="../reading_files.html#reading_files.read_line">[docs]</a><span class="k">def</span> <span class="nf">read_line</span><span class="p">(</span><span class="n">s</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span><span class="n">column_names</span><span class="p">:</span><span class="nb">list</span><span class="p">):</span>
+<div class="viewcode-block" id="read_line"><a class="viewcode-back" href="../reading_files.html#reading_files.read_line">[docs]</a><span class="k">def</span> <span class="nf">read_line</span><span class="p">(</span><span class="n">s</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span><span class="n">column_names</span><span class="p">:</span><span class="nb">list</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+
+<span class="sd">    :param s: the line</span>
+<span class="sd">    :param column_names: a list of column&#39;s name</span>
+<span class="sd">    :return: a series of values</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="c1"># split every line and space</span>
     <span class="n">l</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
     <span class="c1"># get numbers</span>
@@ -63,93 +75,31 @@
     <span class="n">l</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">column_names</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">l</span></div>
 
-<div class="viewcode-block" id="read_antenna"><a class="viewcode-back" href="../reading_files.html#reading_files.read_antenna">[docs]</a><span class="k">def</span> <span class="nf">read_antenna</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-    <span class="c1"># the name of the columns</span>
-    <span class="n">column_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;fix&#39;</span><span class="p">,</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span><span class="s1">&#39;npoint&#39;</span><span class="p">,</span><span class="s1">&#39;type&#39;</span><span class="p">,</span><span class="s1">&#39;z&#39;</span><span class="p">,</span><span class="s1">&#39;ntrench&#39;</span><span class="p">,</span><span class="s1">&#39;path&#39;</span><span class="p">,</span><span class="s1">&#39;trenchcableadj&#39;</span><span class="p">]</span>
-
-    <span class="c1"># To open the file</span>
-    <span class="n">read</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
-    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>   <span class="c1"># The number of the row of the file</span>
-
-    <span class="c1"># An empty data farme to be filled with the antenna values regarding to the column names</span>
-    <span class="n">antenna_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="n">column_names</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">read</span><span class="p">:</span>
-        <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
-        <span class="k">if</span> <span class="mi">30</span><span class="o">&lt;</span> <span class="n">i</span> <span class="o">&lt;</span><span class="mi">34</span> <span class="p">:</span>  <span class="c1"># The lines related to the antenna location</span>
-            <span class="c1">#extracting values from the line</span>
-            <span class="n">newline</span> <span class="o">=</span> <span class="n">read_line</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="n">column_names</span><span class="p">)</span>
-
-            <span class="c1">#To fill the data frame</span>
-            <span class="n">antenna_df</span> <span class="o">=</span> <span class="n">antenna_df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newline</span><span class="p">,</span><span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-
-    <span class="n">read</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">[1;33mAntenna variables values:</span><span class="se">\x1b</span><span class="s1">[0m </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">antenna_df</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">antenna_df</span></div>
-
-<div class="viewcode-block" id="read_source"><a class="viewcode-back" href="../reading_files.html#reading_files.read_source">[docs]</a><span class="k">def</span> <span class="nf">read_source</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-    <span class="c1"># the name of the columns</span>
-    <span class="n">column_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;z&#39;</span><span class="p">,</span><span class="s1">&#39;A_s&#39;</span><span class="p">,</span><span class="s1">&#39;theta_s&#39;</span><span class="p">,</span><span class="s1">&#39;f&#39;</span><span class="p">]</span>
-
-    <span class="c1"># To open the file</span>
-    <span class="n">read</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
-    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># The number of the row of the file</span>
-
-    <span class="c1"># An empty data farme to be filled with the source values regarding to the column names</span>
-    <span class="n">source_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">column_names</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">read</span><span class="p">:</span>
-
-        <span class="n">newline</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">newline</span><span class="o">!=</span><span class="s1">&#39;&#39;</span> <span class="ow">and</span> <span class="n">newline</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;#&#39;</span><span class="p">,</span><span class="s1">&#39;%&#39;</span><span class="p">]):</span>
-            <span class="n">newline</span> <span class="o">=</span> <span class="n">read_line</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="n">column_names</span><span class="p">)</span>
-            <span class="n">source_df</span> <span class="o">=</span> <span class="n">source_df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newline</span><span class="p">,</span><span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">read</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">[1;33mSource variables values:</span><span class="se">\x1b</span><span class="s1">[0m </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">source_df</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">source_df</span></div>
-
-<div class="viewcode-block" id="read_ionosphere"><a class="viewcode-back" href="../reading_files.html#reading_files.read_ionosphere">[docs]</a><span class="k">def</span> <span class="nf">read_ionosphere</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-    <span class="c1"># the name of the columns</span>
-    <span class="n">column_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">,</span><span class="s1">&#39;N_e&#39;</span><span class="p">,</span><span class="s1">&#39;Ne_to_NmF2&#39;</span><span class="p">,</span><span class="s1">&#39;hmF2&#39;</span><span class="p">,</span><span class="s1">&#39;hmF1&#39;</span><span class="p">,</span><span class="s1">&#39;hmE&#39;</span><span class="p">,</span><span class="s1">&#39;hmD&#39;</span><span class="p">,</span><span class="s1">&#39;foF2&#39;</span><span class="p">,</span><span class="s1">&#39;foF1&#39;</span><span class="p">,</span><span class="s1">&#39;foE&#39;</span><span class="p">,</span><span class="s1">&#39;foD&#39;</span><span class="p">]</span>
-
-    <span class="c1"># To open the file</span>
-    <span class="n">read</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
-    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>   <span class="c1"># The number of the row of the file</span>
-
-    <span class="c1"># An empty data farme to be filled with the antenna values regarding to the column names</span>
-    <span class="n">iono_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="n">column_names</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">read</span><span class="p">:</span>
-        <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
-        <span class="k">if</span> <span class="mi">43</span><span class="o">&lt;</span> <span class="n">i</span>  <span class="p">:</span>  <span class="c1"># The lines related to the antenna location</span>
-            <span class="c1">#extracting values from the line</span>
-            <span class="n">newline</span> <span class="o">=</span> <span class="n">read_line</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="n">column_names</span><span class="p">)</span>
-
-            <span class="c1">#To fill the data frame</span>
-            <span class="n">iono_df</span> <span class="o">=</span> <span class="n">iono_df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newline</span><span class="p">,</span><span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-
-    <span class="n">read</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">[1;33mIonosphere variables values:</span><span class="se">\x1b</span><span class="s1">[0m </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">iono_df</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">iono_df</span></div>
-
-
-<span class="c1"># fn = &#39;../IonosphereObservation/Data/Input/03-tri50_2.txt&#39;</span>
-<span class="c1"># at = read_antenna(fn)</span>
-<span class="c1"># print(&#39;\x1b[1;33mAntenna variables values:\x1b[0m \n&#39;,at)</span>
-<span class="c1"># at.to_csv(&#39;../IonosphereObservation/Data/Input/03-tri50.csv&#39;, encoding=&#39;utf-8&#39;,index= False )</span>
-
-<span class="c1"># fn = &#39;OriginalDocuments/source2.txt&#39;</span>
-<span class="c1"># sc = read_source(fn)</span>
-<span class="c1"># print(&#39;\x1b[1;36mSource variables values:\x1b[0m \n&#39;,sc)</span>
-<span class="c1"># sc.to_csv(&#39;../IonosphereObservation/Data/Input/source2.csv&#39;, encoding=&#39;utf-8&#39;,index= False )</span>
-
-
-
-
+<span class="c1"># def read_ionosphere(filename):</span>
+<span class="c1">#     # the name of the columns</span>
+<span class="c1">#     column_names = [&#39;Height&#39;,&#39;N_e&#39;,&#39;Ne_to_NmF2&#39;,&#39;hmF2&#39;,&#39;hmF1&#39;,&#39;hmE&#39;,&#39;hmD&#39;,&#39;foF2&#39;,&#39;foF1&#39;,&#39;foE&#39;,&#39;foD&#39;]</span>
+<span class="c1">#</span>
+<span class="c1">#     # To open the file</span>
+<span class="c1">#     read = open(filename, &#39;r&#39;)</span>
+<span class="c1">#     i = 0   # The number of the row of the file</span>
+<span class="c1">#</span>
+<span class="c1">#     # An empty data farme to be filled with the antenna values regarding to the column names</span>
+<span class="c1">#     iono_df = pd.DataFrame(columns = column_names)</span>
+<span class="c1">#</span>
+<span class="c1">#     for line in read:</span>
+<span class="c1">#         i+=1</span>
+<span class="c1">#         if 43&lt; i  :  # The lines related to the antenna location</span>
+<span class="c1">#             #extracting values from the line</span>
+<span class="c1">#             newline = read_line(line,column_names)</span>
+<span class="c1">#</span>
+<span class="c1">#             #To fill the data frame</span>
+<span class="c1">#             iono_df = iono_df.append(newline,ignore_index=True)</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="c1">#     read.close()</span>
+<span class="c1">#     print(&#39;\x1b[1;33mIonosphere variables values:\x1b[0m \n&#39;, iono_df)</span>
+<span class="c1">#</span>
+<span class="c1">#     return iono_df</span>
 </pre></div>
 
           </div>

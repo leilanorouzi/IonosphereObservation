@@ -55,6 +55,35 @@
 </li>
 </ul>
 </div>
+<div class="section" id="code">
+<h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="input-files">
+<h3>Input files<a class="headerlink" href="#input-files" title="Permalink to this headline">¶</a></h3>
+<p>To run this project we need information about the source, the environment and the receivers.
+The antenna and source information are stored in two txt files <code class="file docutils literal notranslate"><span class="pre">source2.txt</span></code> and <code class="file docutils literal notranslate"><span class="pre">03-tri_2.txt</span></code>.
+The medium parameters can be found in <code class="file docutils literal notranslate"><span class="pre">parameters.py</span></code>.</p>
+<div class="section" id="file-description">
+<h4>File description<a class="headerlink" href="#file-description" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p><strong>03-tri_2.txt</strong>: antenna information</p></li>
+<li><p><strong>source2.txt</strong>: source information</p></li>
+<li><p><strong>parameters.py</strong>: This file contains some parameters</p></li>
+<li><p><strong>reading_files.py</strong>: This file contains function to read input files of the source and the antenna.</p></li>
+<li><p><strong>source.py</strong>: This file contains  source such as reading source input file, exporting location locations and parameters, and polarization.</p></li>
+<li><p><strong>antenna.py</strong>: This file contains methods to define the property of the antennas such as locations.</p></li>
+<li><p><strong>source-antenna.py</strong>: It deals with methods which are only involve source and antenna, regardless the environment, such as the distance between the antenna and the sources or defining the dipole transmitters as a source.</p></li>
+<li><p><strong>wave_propagation</strong>: Contains the main class and function to calculate the results for the waves received at the location of antenna from the source/s.</p></li>
+<li><p><strong>multi_source_received_waves</strong>: The main program file.</p></li>
+<li><p><strong>visualization</strong>: Include codes for plotting and visualization purposes.</p></li>
+<li><p><strong>geometry.py</strong>: This file includes all function required for calculating geometrical parameters and variables.</p></li>
+</ul>
+</div>
+<div class="section" id="how-to-run">
+<h4>How to run?<a class="headerlink" href="#how-to-run" title="Permalink to this headline">¶</a></h4>
+<p>Please copy and past all files (mentioned in the file description) to a directory. Then, in that directory, you can run the main program by typing <cite>python multi_source_receieved_waves.py</cite>.</p>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>

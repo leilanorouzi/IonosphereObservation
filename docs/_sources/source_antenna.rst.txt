@@ -1,0 +1,32 @@
+source\_antenna
+===============
+
+To define a dipole transmitter source not only depends ont the source characteristics but depends on the position of the receiver respect to the transmitter.
+Therefore, the source will be unique for each receiver antennas.
+
+The transmitter antennas were considered to be fix respect to the reference frame and similar for all sources.  Please refer to :ref:`dipole_plot`.
+
+.. figure:: _static/dipole_3d_clip.gif
+    :align: center
+    :alt: Dipole sources and the antenna
+
+    The geometry of the dipole transmitter and receiver antenna
+
+:argument:
+    - class: :py:class:`Source`
+    - class: :py:class:`Antenna`
+
+:attributes:
+    - distance: DataFrame, the distance between source/s and antennas
+    - path_vec: DataFrame, the vectors of path from antenna to source/s
+
+:methods:
+    - multi_dist: to calculate the distance and the vector between each set of source-antenna. It calls dist function to calculate the distance.
+    - dipole_transmitter: It obtains the oscillation of far field located in the ionosphere.
+
+
+
+.. autoclass:: source_antenna.SourceAntenna
+   :members:
+   :undoc-members:
+   :show-inheritance:

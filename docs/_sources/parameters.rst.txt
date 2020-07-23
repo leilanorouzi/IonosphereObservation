@@ -1,5 +1,8 @@
 parameters module
 =================
 
-.. py:attribute:: parameters
+At the moment the medium is considered to be free space.
+
+.. autodata:: parameters
+   :annotation:
 

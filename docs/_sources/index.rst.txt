@@ -19,6 +19,33 @@ Ionosphere observation
    main
    modules
 
+Code
+****
+
+Input files
++++++++++++
+
+To run this project we need information about the source, the environment and the receivers.
+The antenna and source information are stored in two txt files :file:`source2.txt` and :file:`03-tri_2.txt`.
+The medium parameters can be found in :file:`parameters.py`.
+
+File description
+________________
+- **03-tri\_2.txt**: antenna information
+- **source2.txt**: source information
+- **parameters.py**: This file contains some parameters
+- **reading\_files.py**: This file contains function to read input files of the source and the antenna.
+- **source.py**: This file contains  source such as reading source input file, exporting location locations and parameters, and polarization.
+- **antenna.py**: This file contains methods to define the property of the antennas such as locations.
+- **source\-antenna.py**: It deals with methods which are only involve source and antenna, regardless the environment, such as the distance between the antenna and the sources or defining the dipole transmitters as a source.
+- **wave\_propagation**: Contains the main class and function to calculate the results for the waves received at the location of antenna from the source/s.
+- **multi\_source\_received\_waves**: The main program file.
+- **visualization**: Include codes for plotting and visualization purposes.
+- **geometry.py**: This file includes all function required for calculating geometrical parameters and variables.
+
+How to run?
+___________
+Please copy and past all files (mentioned in the file description) to a directory. Then, in that directory, you can run the main program by typing `python multi_source_receieved_waves.py`.
 
 Indices and tables
 ==================

@@ -20,7 +20,6 @@ The frequency band can be filtered, the time samples could be integrated, and th
 With things like these applied to all sources and all antennas we can do many tests of radio and radar imaging.
 
 
-The information about the antenna and source are stored in two txt files. These files can be loaded using :file:`reading_files.py`.
 
 
 Assumptions
@@ -212,25 +211,6 @@ Then the first part of dipole transmitter electric field can be added to the equ
   \mathbf{E}(\mathbf{r},t)= \mathbf{E_0} \frac{\zeta_0 I_0}{2 \pi r} \frac{\cos(\frac{\pi}{2}\cos(\theta))}{\sin(\theta)} \Re \left\{ e^{i(\mathbf{k}\cdot\mathbf{r}-\omega t )}\right\}
   :label: eq:dipole_wave_form
 
-Code
-++++
-
-File description
-________________
-- **reading_files.py**: This file contains a program that takes file names of antenna and source information (03-tri-2.txt and source2.txt) and returns the information in a DataFarme format to be used in the main program.
-- **03-tri_2.txt**: antenna information
-- **source2.txt**: source information
-- **parameters.py**: This file contains some parameters
-- **multi_source**: Contains the main class and function to calculate the results for the waves received at the location of antenna from the source/s.
-- **multi_source_received_waves**: The main program file.
-- **visualization**: Include codes for plotting and visualization purposes.
-
-
-
-
-How to run?
-___________
-Please copy and past all files (mentioned in the file description) to a directory. Then, in that directory, you can run the main program by typing `python multi_source_receieved_waves.py`.
 
 References
 **********

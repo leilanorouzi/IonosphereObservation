@@ -36,17 +36,17 @@
             
   <div class="section" id="main-code">
 <h1>Main code<a class="headerlink" href="#main-code" title="Permalink to this headline">¶</a></h1>
-<p>The main code <a class="reference internal" href="multi_source_receieved_waves.html#module-multi_source_receieved_waves" title="multi_source_receieved_waves"><code class="xref py py-mod docutils literal notranslate"><span class="pre">multi_source_receieved_waves</span></code></a> runs other modules and plot the graphics.
-After importing input data, you can call <a class="reference internal" href="visualization.html#module-visualization" title="visualization"><code class="xref py py-class docutils literal notranslate"><span class="pre">visualization</span></code></a> to plot or <a class="reference internal" href="multi_source.html#module-multi_source" title="multi_source"><code class="xref py py-class docutils literal notranslate"><span class="pre">multi_source</span></code></a>
+<p>The main code <a class="reference internal" href="multi_source_receieved_waves.html#multi_source_receieved_waves.main" title="multi_source_receieved_waves.main"><code class="xref py py-mod docutils literal notranslate"><span class="pre">multi_source_receieved_waves.main</span></code></a> runs other modules and plot the graphics.
+After importing input data, you can call <a class="reference internal" href="visualization.html#visualization.visualization" title="visualization.visualization"><code class="xref py py-class docutils literal notranslate"><span class="pre">visualization.visualization</span></code></a> to plot or <a class="reference internal" href="wave_propagation.html#wave_propagation.WavePropagation" title="wave_propagation.WavePropagation"><code class="xref py py-class docutils literal notranslate"><span class="pre">wave_propagation.WavePropagation</span></code></a>
 to calculate different results.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Example</dt>
 <dd class="field-odd"><p></p></dd>
 </dl>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">multi_source</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ms</span> <span class="o">=</span> <span class="n">multi_source</span><span class="p">(</span><span class="n">radar_fn</span><span class="p">,</span><span class="n">source_fn</span><span class="p">,</span><span class="n">dipole</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">phase</span><span class="p">,</span> <span class="n">wave</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">antennna_wave_received</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">vis</span> <span class="o">=</span> <span class="n">visualization</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">ms</span><span class="o">.</span><span class="n">antenna_location</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">ms</span><span class="o">.</span><span class="n">source_location</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wave_propagation</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wp</span> <span class="o">=</span> <span class="n">WavePropagation</span><span class="p">(</span><span class="n">radar_fn</span><span class="p">,</span><span class="n">source_fn</span><span class="p">,</span><span class="n">dipole</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wave</span> <span class="o">=</span> <span class="n">wp</span><span class="o">.</span><span class="n">antennna_wave_received</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vis</span> <span class="o">=</span> <span class="n">visualization</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">antenna_location</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">source_location</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">vis</span><span class="o">.</span><span class="n">source_antenna_location</span><span class="p">()</span>
 </pre></div>
 </div>

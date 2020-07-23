@@ -16,7 +16,8 @@
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="reference_transformation module" href="reference_transformation.html" />
+    <link rel="next" title="wave_propagation class" href="wave_propagation.html" />
+    <link rel="prev" title="source_antenna" href="source_antenna.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -47,6 +48,16 @@
 :param a: Array, the location of antenna
 :param s: Array, The location of source/s
 :return: None</p>
+<dl class="field-list simple">
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">visualization</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vec1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span> <span class="mf">50.</span> <span class="p">,</span> <span class="mf">50.</span> <span class="p">,</span>  <span class="mf">0.</span><span class="p">],[</span> <span class="mf">50.</span> <span class="p">,</span><span class="mf">100.</span> <span class="p">,</span>  <span class="mf">0.</span><span class="p">],[</span><span class="mf">109.</span> <span class="p">,</span> <span class="mf">50.</span> <span class="p">,</span>  <span class="mf">0.</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vec2</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span>  <span class="mf">5000.</span><span class="p">,</span>  <span class="mf">10000.</span><span class="p">,</span> <span class="mf">200000.</span><span class="p">],[</span><span class="o">-</span><span class="mf">15000.</span><span class="p">,</span>  <span class="mf">10000.</span> <span class="p">,</span><span class="mf">200000.</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">source_antenna_location</span><span class="p">(</span><span class="n">vec1</span><span class="p">,</span><span class="n">vec2</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </dd></dl>
@@ -85,7 +96,8 @@
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
   <li><a href="modules.html">Module codes</a><ul>
-      <li>Previous: <a href="reference_transformation.html" title="previous chapter">reference_transformation module</a></li>
+      <li>Previous: <a href="source_antenna.html" title="previous chapter">source_antenna</a></li>
+      <li>Next: <a href="wave_propagation.html" title="next chapter">wave_propagation class</a></li>
   </ul></li>
   </ul></li>
 </ul>

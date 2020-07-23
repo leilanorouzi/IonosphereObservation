@@ -1,17 +1,18 @@
 Main code
 =========
 
-The main code :py:mod:`multi_source_receieved_waves` runs other modules and plot the graphics.
-After importing input data, you can call :py:class:`visualization` to plot or :py:class:`multi_source`
+The main code :py:mod:`multi_source_receieved_waves.main` runs other modules and plot the graphics.
+After importing input data, you can call :py:class:`visualization.visualization` to plot or :py:class:`wave_propagation.WavePropagation`
 to calculate different results.
 
 :Example:
 
->>> from multi_source import *
->>> ms = multi_source(radar_fn,source_fn,dipole)
->>> phase, wave = ms.antennna_wave_received()
->>> vis = visualization(a=ms.antenna_location, s=ms.source_location)
+>>> from wave_propagation import *
+>>> wp = WavePropagation(radar_fn,source_fn,dipole)
+>>> wave = wp.antennna_wave_received()
+>>> vis = visualization(a=wp.antenna_location, s=wp.source_location)
 >>> vis.source_antenna_location()
+
 
 
 

@@ -53,6 +53,13 @@
 <span class="sd">        :param a: Array, the location of antenna</span>
 <span class="sd">        :param s: Array, The location of source/s</span>
 <span class="sd">        :return: None</span>
+
+<span class="sd">        :Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; from visualization import *</span>
+<span class="sd">        &gt;&gt;&gt; vec1 = np.array([[ 50. , 50. ,  0.],[ 50. ,100. ,  0.],[109. , 50. ,  0.]])</span>
+<span class="sd">        &gt;&gt;&gt; vec2= np.array([[  5000.,  10000., 200000.],[-15000.,  10000. ,200000.]])</span>
+<span class="sd">        &gt;&gt;&gt; source_antenna_location(vec1,vec2)</span>
 <span class="sd">        &#39;&#39;&#39;</span>
 
         <span class="n">x_antenna</span> <span class="o">=</span> <span class="p">[]</span>
@@ -106,15 +113,6 @@
         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># to keep the picture until you close it</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>  <span class="c1"># Free the memory</span></div></div>
 
-<span class="c1">#</span>
-<span class="c1"># vec1 = np.array([[ 50. , 50. ,  0.],</span>
-<span class="c1">#         [ 50. ,100. ,  0.],</span>
-<span class="c1">#         [109. , 50. ,  0.]])</span>
-<span class="c1">#</span>
-<span class="c1"># vec2= np.array([ [  5000.,  10000., 200000.],</span>
-<span class="c1">#         [-15000.,  10000. ,200000.]])</span>
-<span class="c1">#</span>
-<span class="c1"># source_antenna_location(vec1,vec2)</span>
 </pre></div>
 
           </div>

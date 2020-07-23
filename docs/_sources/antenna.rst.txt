@@ -1,0 +1,20 @@
+antenna
+=======
+
+
+:argument:
+    - radar_fn: the file name containing the values of the antenna variables
+
+:attributes:
+    - antenna_charc: DataFrame, Antenna variables
+    - antenna_location: Array, antenna location coordinate
+    - radar_n: Integer: The number of antenna
+
+:methods:
+    - read_antenna: To read antenna input file
+
+
+.. autoclass:: antenna.Antenna
+   :members:
+   :undoc-members:
+   :show-inheritance:

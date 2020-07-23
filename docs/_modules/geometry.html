@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>reference_transformation &#8212; EM wave propagation for antenna 0.0.2 documentation</title>
+    <title>geometry &#8212; EM wave propagation for antenna 0.0.2 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -32,7 +32,7 @@
 
           <div class="body" role="main">
             
-  <h1>Source code for reference_transformation</h1><div class="highlight"><pre>
+  <h1>Source code for geometry</h1><div class="highlight"><pre>
 <span></span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="c1"># import matplotlib.pyplot as plt</span>
@@ -42,7 +42,21 @@
 <span class="kn">import</span> <span class="nn">cmath</span>
 
 
-<div class="viewcode-block" id="asCartesian"><a class="viewcode-back" href="../reference_transformation.html#reference_transformation.asCartesian">[docs]</a><span class="k">def</span> <span class="nf">asCartesian</span><span class="p">(</span><span class="n">rthetaphi</span><span class="p">):</span>
+<div class="viewcode-block" id="dist"><a class="viewcode-back" href="../geometry.html#geometry.dist">[docs]</a><span class="k">def</span> <span class="nf">dist</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This function calculates the distance between two points</span>
+
+<span class="sd">    :param a: first location coordinates</span>
+<span class="sd">    :type a: list</span>
+<span class="sd">    :param b: second location coordinates</span>
+<span class="sd">    :type b: list</span>
+<span class="sd">    :return: the distance</span>
+<span class="sd">    :rtype: float</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="asCartesian"><a class="viewcode-back" href="../geometry.html#geometry.asCartesian">[docs]</a><span class="k">def</span> <span class="nf">asCartesian</span><span class="p">(</span><span class="n">rthetaphi</span><span class="p">):</span>
     <span class="c1"># takes list rthetaphi (single coord)</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">rthetaphi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">theta</span> <span class="o">=</span> <span class="n">rthetaphi</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
@@ -53,7 +67,7 @@
     <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">]</span></div>
 
 
-<div class="viewcode-block" id="asSpherical"><a class="viewcode-back" href="../reference_transformation.html#reference_transformation.asSpherical">[docs]</a><span class="k">def</span> <span class="nf">asSpherical</span><span class="p">(</span><span class="n">xyz</span><span class="p">):</span>
+<div class="viewcode-block" id="asSpherical"><a class="viewcode-back" href="../geometry.html#geometry.asSpherical">[docs]</a><span class="k">def</span> <span class="nf">asSpherical</span><span class="p">(</span><span class="n">xyz</span><span class="p">):</span>
     <span class="c1"># print(&#39;asSpherical\n:&#39;,np.shape(xyz))</span>
     <span class="c1"># takes list xyz (single coord)</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -66,7 +80,7 @@
     <span class="k">return</span> <span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">phi</span><span class="p">]</span></div>
 
 
-<div class="viewcode-block" id="rotate_vec"><a class="viewcode-back" href="../reference_transformation.html#reference_transformation.rotate_vec">[docs]</a><span class="k">def</span> <span class="nf">rotate_vec</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<div class="viewcode-block" id="rotate_vec"><a class="viewcode-back" href="../geometry.html#geometry.rotate_vec">[docs]</a><span class="k">def</span> <span class="nf">rotate_vec</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
     <span class="n">ref_p</span> <span class="o">=</span> <span class="n">asSpherical</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
     <span class="c1"># print(a)</span>
     <span class="c1"># print(ref_p)</span>
@@ -90,11 +104,11 @@
     <span class="k">return</span> <span class="n">vec_rot</span><span class="p">,</span> <span class="n">rotated</span></div>
 
 
-<div class="viewcode-block" id="vectors_angel"><a class="viewcode-back" href="../reference_transformation.html#reference_transformation.vectors_angel">[docs]</a><span class="k">def</span> <span class="nf">vectors_angel</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<div class="viewcode-block" id="vectors_angel"><a class="viewcode-back" href="../geometry.html#geometry.vectors_angel">[docs]</a><span class="k">def</span> <span class="nf">vectors_angel</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">cmath</span><span class="o">.</span><span class="n">asin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">cmath</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span> <span class="o">*</span> <span class="n">cmath</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">b</span><span class="p">))))</span></div>
 
 
-<div class="viewcode-block" id="projection"><a class="viewcode-back" href="../reference_transformation.html#reference_transformation.projection">[docs]</a><span class="k">def</span> <span class="nf">projection</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<div class="viewcode-block" id="projection"><a class="viewcode-back" href="../geometry.html#geometry.projection">[docs]</a><span class="k">def</span> <span class="nf">projection</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
     <span class="c1"># a: the main vector, the vector that other vectors will be added to</span>
     <span class="c1"># b: The second vector that will be added to the original vector</span>
     <span class="n">ang</span> <span class="o">=</span> <span class="n">vectors_angel</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
@@ -103,7 +117,7 @@
     <span class="k">return</span> <span class="n">vec_para</span><span class="p">,</span> <span class="n">vec_perp</span></div>
 
 
-<div class="viewcode-block" id="axis_angels"><a class="viewcode-back" href="../reference_transformation.html#reference_transformation.axis_angels">[docs]</a><span class="k">def</span> <span class="nf">axis_angels</span><span class="p">(</span><span class="n">vec</span><span class="p">):</span>
+<div class="viewcode-block" id="axis_angels"><a class="viewcode-back" href="../geometry.html#geometry.axis_angels">[docs]</a><span class="k">def</span> <span class="nf">axis_angels</span><span class="p">(</span><span class="n">vec</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    This function calculates the angels between the vector and x, y  and z axis.</span>
 
@@ -125,7 +139,7 @@
     <span class="k">return</span> <span class="n">ang_x</span><span class="p">,</span> <span class="n">ang_y</span><span class="p">,</span> <span class="n">ang_z</span></div>
 
 
-<div class="viewcode-block" id="rotate_refernce"><a class="viewcode-back" href="../reference_transformation.html#reference_transformation.rotate_refernce">[docs]</a><span class="k">def</span> <span class="nf">rotate_refernce</span><span class="p">(</span><span class="n">vec</span><span class="p">):</span>
+<div class="viewcode-block" id="rotate_refernce"><a class="viewcode-back" href="../geometry.html#geometry.rotate_refernce">[docs]</a><span class="k">def</span> <span class="nf">rotate_refernce</span><span class="p">(</span><span class="n">vec</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    :param vec: the vector that second frame is attached to</span>
 <span class="sd">    :type vec: list</span>
@@ -159,68 +173,6 @@
     <span class="c1"># rot = np.dot(rot_x,rot_y)</span>
     <span class="k">return</span> <span class="n">rot</span></div>
 
-<span class="c1">#</span>
-<span class="c1">#</span>
-<span class="c1"># # vec_ref = np.array([4950.0, 9950.0, 20000.0])*1</span>
-<span class="c1"># x = 20000</span>
-<span class="c1"># # vec_ref = np.array([x,x*np.tan(np.deg2rad(45)),x*np.tan(np.deg2rad(30))])*1</span>
-<span class="c1"># vec_ref = np.array([x,x,x*np.tan(np.deg2rad(30))])*-1</span>
-<span class="c1"># vec = [0,0,15000]</span>
-<span class="c1">#</span>
-<span class="c1"># vec_rot, ang = np.array(rotate_vec(vec_ref,vec), dtype=float)</span>
-<span class="c1"># # vec_rot = rotate_vec(vec,vec_ref)</span>
-<span class="c1">#</span>
-<span class="c1"># vec_rot2,ang2 = rotate_vec(vec_ref,vec_rot)</span>
-<span class="c1">#</span>
-<span class="c1">#</span>
-<span class="c1"># #</span>
-<span class="c1"># # # print(&#39;ROTATED\n&#39;,vec_rot)</span>
-<span class="c1"># #</span>
-<span class="c1"># # ----------------------------------------------------------</span>
-<span class="c1"># # Visulization</span>
-<span class="c1"># # Coordinates of the antenna and the source locations</span>
-<span class="c1">#</span>
-<span class="c1"># # Plotting in 3 dimensions</span>
-<span class="c1"># fig = plt.figure(figsize=(10, 10))</span>
-<span class="c1"># fig.suptitle(&#39;Please close the picture, when you finished&#39;, fontsize=20, color=&#39;brown&#39;)</span>
-<span class="c1"># ax = plt.axes(projection=&#39;3d&#39;)</span>
-<span class="c1">#</span>
-<span class="c1"># plt.title(&#39;The overview of the antenna and source coordinates\n\n&#39;, fontsize=14)</span>
-<span class="c1"># ax.scatter3D( vec_ref[0],vec_ref[1],vec_ref[2],</span>
-<span class="c1">#              color=&#39;g&#39;</span>
-<span class="c1">#              )</span>
-<span class="c1"># ax.plot(</span>
-<span class="c1">#     [vec_ref[0], 0],</span>
-<span class="c1">#     [vec_ref[1], 0],</span>
-<span class="c1">#     [vec_ref[2], 0],</span>
-<span class="c1">#     color=&#39;gold&#39;)</span>
-<span class="c1">#</span>
-<span class="c1"># ax.plot(</span>
-<span class="c1">#     [vec[0], 0],</span>
-<span class="c1">#     [vec[1], 0],</span>
-<span class="c1">#     [vec[2]+10000, 0],</span>
-<span class="c1">#     color=&#39;r&#39;)</span>
-<span class="c1">#</span>
-<span class="c1"># ax.plot(</span>
-<span class="c1">#     [vec_rot[0], 0],</span>
-<span class="c1">#     [vec_rot[1], 0],</span>
-<span class="c1">#     [vec_rot[2], 0],</span>
-<span class="c1">#     color=&#39;g&#39;)</span>
-<span class="c1">#</span>
-<span class="c1"># ax.plot(</span>
-<span class="c1">#     [vec_rot2[0], 0],</span>
-<span class="c1">#     [vec_rot2[1], 0],</span>
-<span class="c1">#     [vec_rot2[2], 0],</span>
-<span class="c1">#     color=&#39;b&#39;)</span>
-<span class="c1">#</span>
-<span class="c1"># ax.text(vec_ref[0] - 500, vec_ref[1], vec_ref[2] + 1000, &#39;The source\n&#39;, size=14, zorder=1,</span>
-<span class="c1">#         color=&#39;r&#39;)</span>
-<span class="c1"># ax.set_xlabel(&#39;X &#39;)</span>
-<span class="c1"># ax.set_ylabel(&#39;Y &#39;)</span>
-<span class="c1"># ax.set_zlabel(&#39;Z &#39;)</span>
-<span class="c1"># plt.show()  # to keep the picture until you close it</span>
-<span class="c1"># plt.close(fig)  # Free the memory</span>
-<span class="c1">#</span>
 </pre></div>
 
           </div>

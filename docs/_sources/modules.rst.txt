@@ -3,11 +3,14 @@ Module codes
 
 There are several files including classes, functions and required parameters as follow:
 
-*   **multi\_source** : The main class for calculations
-*   **parameters** : Contains the media parameters. In future it will be filled by codes to calculate values for medium parameter such as refractive index, electron density ans so on.
-*   **reading_files**: To read antenna and source information
-*   **reference_transformation**: To calculate reference frame system  and vector rotation.
+*   **reading\_files**: To read antenna and source information
+*   **source.py**: To obtain and calculate the parameters of the source/s
+*   **antenna.py**: To obtain and calculate the parameters of the antennas
+*   **source\_antenna.py**: To calculate the parameter related to the source/s and antenna/s
+*   **geometry**: To calculate reference frame system  and vector rotation.
 *   **visualization**: Includes functions to plot all necessary graphs, figures and diagrams.
+*   **wave\_propagation** : The main class for calculations
+
 
 Link to modules
 +++++++++++++++
@@ -15,9 +18,11 @@ Link to modules
 .. toctree::
    :maxdepth: 4
 
-   multi_source
    parameters
    reading_files
-   reference_transformation
+   geometry
+   antenna
+   source
+   source_antenna
    visualization
-
+   wave_propagation

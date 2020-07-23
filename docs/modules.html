@@ -16,7 +16,7 @@
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="multi_source class" href="multi_source.html" />
+    <link rel="next" title="parameters module" href="parameters.html" />
     <link rel="prev" title="multi_source_receieved_waves module" href="multi_source_receieved_waves.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -38,21 +38,26 @@
 <h1>Module codes<a class="headerlink" href="#module-codes" title="Permalink to this headline">¶</a></h1>
 <p>There are several files including classes, functions and required parameters as follow:</p>
 <ul class="simple">
-<li><p><strong>multi_source</strong> : The main class for calculations</p></li>
-<li><p><strong>parameters</strong> : Contains the media parameters. In future it will be filled by codes to calculate values for medium parameter such as refractive index, electron density ans so on.</p></li>
 <li><p><strong>reading_files</strong>: To read antenna and source information</p></li>
-<li><p><strong>reference_transformation</strong>: To calculate reference frame system  and vector rotation.</p></li>
+<li><p><strong>source.py</strong>: To obtain and calculate the parameters of the source/s</p></li>
+<li><p><strong>antenna.py</strong>: To obtain and calculate the parameters of the antennas</p></li>
+<li><p><strong>source_antenna.py</strong>: To calculate the parameter related to the source/s and antenna/s</p></li>
+<li><p><strong>geometry</strong>: To calculate reference frame system  and vector rotation.</p></li>
 <li><p><strong>visualization</strong>: Includes functions to plot all necessary graphs, figures and diagrams.</p></li>
+<li><p><strong>wave_propagation</strong> : The main class for calculations</p></li>
 </ul>
 <div class="section" id="link-to-modules">
 <h2>Link to modules<a class="headerlink" href="#link-to-modules" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="multi_source.html">multi_source class</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parameters.html">parameters module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reading_files.html">reading_files module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="reference_transformation.html">reference_transformation module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geometry.html">geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="antenna.html">antenna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source.html">source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source_antenna.html">source_antenna</a></li>
 <li class="toctree-l1"><a class="reference internal" href="visualization.html">visualization class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wave_propagation.html">wave_propagation class</a></li>
 </ul>
 </div>
 </div>
@@ -90,7 +95,7 @@
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="multi_source_receieved_waves.html" title="previous chapter">multi_source_receieved_waves module</a></li>
-      <li>Next: <a href="multi_source.html" title="next chapter">multi_source class</a></li>
+      <li>Next: <a href="parameters.html" title="next chapter">parameters module</a></li>
   </ul></li>
 </ul>
 </div>

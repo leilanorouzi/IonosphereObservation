@@ -1,5 +1,5 @@
-reference\_transformation module
-================================
+geometry
+========
 
 The field vector is calculating in the reference frame system that the z direction is attached to the ray path.
 In order to obtain the received field vector at the antenna in the original frame, we need to rotate ray-path attached frame tot the original one.
@@ -8,8 +8,11 @@ Please look at the picture:
 .. figure:: ./_static/referenceFrame0.png
    :scale: 50%
 
+:methods:
+    - dist: to calculate the distance between two points in Cartesian coordinate
 
-.. automodule:: reference_transformation
+
+.. automodule:: geometry
    :members:
    :undoc-members:
    :show-inheritance:

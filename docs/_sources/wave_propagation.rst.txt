@@ -1,0 +1,32 @@
+wave\_propagation class
+=======================
+
+This the main class to calculate the properties of wave transmitted from the source and received at the antenna.
+
+:argument:
+    - radar_fn: the file name containing the values of the antenna variables
+    - source_fn: the file name containing the values of the wave source variables
+
+    - dipole: To define if the source is a dipole transmitter or not.
+
+:attributes:
+    - ref_index: refractive index of the medium
+
+:methods:
+    - phase_diff: To calculate the phase difference at antenna. Takes the phase part from antennna_wave_received function and for each antenna add them up.
+    - wtkr: To calculate the oscillation part of wave form.
+    - antennna_wave_received: This function calculate the field components and the phase of the field received at the antenna location, transmitted from the source. The results are calculated at the ray path attached reference frame.
+    - vector_superposition: Calculate the superposition of the vector by rotating the reference frame from ray path attached reference frame to the original reference frame.
+    - voltage: Calculate the voltage of the received electric field at the antenna location.
+
+:Example:
+
+>>> from wave_propagation import *
+>>> wp = WavePropagation(radar_fn,source_fn, dipole)
+>>> phase, wave = wp.antennna_wave_received()
+
+.. autoclass:: wave_propagation.WavePropagation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+

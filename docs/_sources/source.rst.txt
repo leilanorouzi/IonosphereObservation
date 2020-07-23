@@ -1,0 +1,28 @@
+source
+======
+
+We may have only a single source or multiple sources. Furthermore, our sources can be defined as polarized or as dipole transmitter.
+Polarization of the source is given as a function which solely depends on the source.
+However, considering a dipole transmitter source depends on the direction of the transmitter antenna respect to the receiver.
+Therefore, the modules related to the the dipole transmitter is given in another class :py:class:`source_antenna.SourceAntenna`.
+
+
+:argument:
+    - source_fn: the file name containing the values of the wave source variables
+    - dipole: To define if the source is a dipole transmitter or not.
+
+:attributes:
+    - source_charc: Dataframe, source of wave variables
+    - source_n: Integer:, the number of the wave sources
+    - s_columns: List, the header of the column name for creating the DataFrame
+    - source_location: Array, the location of wave sources
+
+:methods:
+    - polarization: To calculate the Jones vector of the source. It gets phase angles.
+    - read_source: To read the source input file
+    - wave_num: to calculate the wave number of source signals
+
+.. autoclass:: source.Source
+   :members:
+   :undoc-members:
+   :show-inheritance:

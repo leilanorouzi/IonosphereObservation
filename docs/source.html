@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>source &#8212; EM wave propagation for antenna 0.0.2 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="source_antenna" href="source_antenna.html" />
+    <link rel="prev" title="antenna" href="antenna.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="source">
+<h1>source<a class="headerlink" href="#source" title="Permalink to this headline">¶</a></h1>
+<p>We may have only a single source or multiple sources. Furthermore, our sources can be defined as polarized or as dipole transmitter.
+Polarization of the source is given as a function which solely depends on the source.
+However, considering a dipole transmitter source depends on the direction of the transmitter antenna respect to the receiver.
+Therefore, the modules related to the the dipole transmitter is given in another class <a class="reference internal" href="source_antenna.html#source_antenna.SourceAntenna" title="source_antenna.SourceAntenna"><code class="xref py py-class docutils literal notranslate"><span class="pre">source_antenna.SourceAntenna</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">argument</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>source_fn: the file name containing the values of the wave source variables</p></li>
+<li><p>dipole: To define if the source is a dipole transmitter or not.</p></li>
+</ul>
+</dd>
+<dt class="field-even">attributes</dt>
+<dd class="field-even"><ul class="simple">
+<li><p>source_charc: Dataframe, source of wave variables</p></li>
+<li><p>source_n: Integer:, the number of the wave sources</p></li>
+<li><p>s_columns: List, the header of the column name for creating the DataFrame</p></li>
+<li><p>source_location: Array, the location of wave sources</p></li>
+</ul>
+</dd>
+<dt class="field-odd">methods</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>polarization: To calculate the Jones vector of the source. It gets phase angles.</p></li>
+<li><p>read_source: To read the source input file</p></li>
+<li><p>wave_num: to calculate the wave number of source signals</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="class">
+<dt id="source.Source">
+<em class="property">class </em><code class="sig-prename descclassname">source.</code><code class="sig-name descname">Source</code><span class="sig-paren">(</span><em class="sig-param">source_fn</em>, <em class="sig-param">dipole</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source.html#Source"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#source.Source" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source_fn</strong> (<em>str</em>) – Source/s txt file path</p></li>
+<li><p><strong>dipole</strong> (<em>Boolean</em>) – If the source is a dipole transmitter or not. The default value is false.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="source.Source.polarization">
+<code class="sig-name descname">polarization</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; numpy.array<a class="reference internal" href="_modules/source.html#Source.polarization"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#source.Source.polarization" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function calculate the Jones vector of a situation. As, e^(i(a_x,a_y,0)).
+The parameters are set at the parameter.py file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>polar_stat</strong> (<em>str</em>) – The type of polarization. unpolarized, linear, elliptical</p></li>
+<li><p><strong>alpha_x</strong> (<em>float</em>) – The phase angle respect to x direction</p></li>
+<li><p><strong>alpha_y</strong> (<em>float</em>) – The phase angle respect  to y direction</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The jones vector</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="source.Source.read_source">
+<code class="sig-name descname">read_source</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/source.html#Source.read_source"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#source.Source.read_source" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="source.Source.wave_num">
+<code class="sig-name descname">wave_num</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/source.html#Source.wave_num"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#source.Source.wave_num" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">EM wave propagation for antenna</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="info.html">Project overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html">Main code</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Module codes</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="modules.html#link-to-modules">Link to modules</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">Module codes</a><ul>
+      <li>Previous: <a href="antenna.html" title="previous chapter">antenna</a></li>
+      <li>Next: <a href="source_antenna.html" title="next chapter">source_antenna</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Leila Norouzi.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/source.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

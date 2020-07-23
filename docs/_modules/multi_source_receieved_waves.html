@@ -38,10 +38,13 @@
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">multi_source</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c1"># from multi_source import *</span>
+<span class="kn">import</span> <span class="nn">wave_propagation</span> <span class="k">as</span> <span class="nn">wp</span>
 <span class="kn">from</span> <span class="nn">visualization</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c1"># from source_antenna import *</span>
+<span class="c1"># from antenna import *</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="c1"># import tkinter as tk</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">Tk</span>
 <span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">filedialog</span>
 
@@ -81,23 +84,26 @@
     <span class="c1"># input_dir = select_directory()</span>
     <span class="c1"># 2- or you can type it in here directly.</span>
     <span class="c1"># If you would like to use this method please, comment above line and uncomment following line.</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;..&#39;</span><span class="p">)))</span>
     <span class="n">input_dir</span> <span class="o">=</span> <span class="s2">&quot;../IonosphereObservation/Data/Input/&quot;</span>
 
+
+
     <span class="c1"># file name of the antenna</span>
-    <span class="n">fnr</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_dir</span><span class="p">,</span><span class="s1">&#39;03-tri50_2.txt&#39;</span><span class="p">)</span>
+    <span class="n">rfn</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_dir</span><span class="p">,</span><span class="s1">&#39;03-tri50_2.txt&#39;</span><span class="p">)</span>
     <span class="c1"># file name of the source</span>
-    <span class="n">fns</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_dir</span><span class="p">,</span> <span class="s1">&#39;source2.txt&#39;</span><span class="p">)</span>
+    <span class="n">sfn</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_dir</span><span class="p">,</span> <span class="s1">&#39;source2.txt&#39;</span><span class="p">)</span>
 
     <span class="c1"># -------------------------------------------------</span>
-    <span class="c1"># to call the class</span>
-    <span class="n">ms</span> <span class="o">=</span> <span class="n">multi_source</span><span class="p">(</span><span class="n">radar_fn</span><span class="o">=</span><span class="n">fnr</span><span class="p">,</span> <span class="n">source_fn</span><span class="o">=</span><span class="n">fns</span><span class="p">,</span> <span class="n">dipole</span><span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># makeing an instance of the class</span>
+    <span class="n">wp</span> <span class="o">=</span> <span class="n">wp</span><span class="o">.</span><span class="n">WavePropagation</span><span class="p">(</span><span class="n">source_fn</span><span class="o">=</span><span class="n">sfn</span><span class="p">,</span> <span class="n">radar_fn</span><span class="o">=</span><span class="n">rfn</span><span class="p">,</span> <span class="n">dipole</span><span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 
     <span class="c1">#-------------------------------------------------</span>
     <span class="c1"># Visualization</span>
     <span class="c1"># Plotting the antennas and source/s location</span>
 
     <span class="c1"># Calling the visualization calss</span>
-    <span class="n">vis</span> <span class="o">=</span> <span class="n">visualization</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">ms</span><span class="o">.</span><span class="n">antenna_location</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">ms</span><span class="o">.</span><span class="n">source_location</span><span class="p">)</span>
+    <span class="n">vis</span> <span class="o">=</span> <span class="n">visualization</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">antenna_location</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">source_location</span><span class="p">)</span>
     <span class="c1"># To obtain the location of the antenna and source and plot them</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[1;31m Please check the plot window.</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">vis</span><span class="o">.</span><span class="n">source_antenna_location</span><span class="p">()</span>
@@ -107,21 +113,21 @@
 
     <span class="c1"># To obtain waves at the antenna</span>
     <span class="c1"># run antenna_wave_received function to calculate the wave results as a data frame for all sources and antennas</span>
-    <span class="n">w</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">antennna_wave_received</span><span class="p">()</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">wp</span><span class="o">.</span><span class="n">antennna_wave_received</span><span class="p">()</span>
     <span class="c1"># To obtain the total result for each antenna, call the vector_superposition function.</span>
     <span class="c1"># It calculate received waves from all sources for each antenna in the original reference frame</span>
     <span class="c1"># and add their components up.</span>
-    <span class="n">waves</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">vector_superposition</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="n">waves</span> <span class="o">=</span> <span class="n">wp</span><span class="o">.</span><span class="n">vector_superposition</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
     <span class="c1"># print(&#39;\x1b[1;31mReceived waves from each source at the antenna locations:\x1b[0m \n&#39;, waves)</span>
 
     <span class="c1"># To obtain the phase difference at the antenna call phase_diff function.</span>
-    <span class="n">phase_difference</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">phase_diff</span><span class="p">()</span>
+    <span class="n">phase_difference</span> <span class="o">=</span> <span class="n">wp</span><span class="o">.</span><span class="n">phase_diff</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Phase difference in degree:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">phase_difference</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[1;31m===============================================================================</span><span class="se">\n\n\x1b</span><span class="s2">[0m&quot;</span><span class="p">)</span>
-
-    <span class="c1"># To obtain the voltage call voltage function</span>
-    <span class="n">voltage</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">voltage</span><span class="p">()</span>
-
+    <span class="c1">#</span>
+    <span class="c1"># # To obtain the voltage call voltage function</span>
+    <span class="c1"># voltage = ms.voltage()</span>
+    <span class="c1">#</span>
     <span class="c1"># -------------------------------------------------</span>
     <span class="c1"># The end</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">)</span>

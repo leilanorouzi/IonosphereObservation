@@ -47,7 +47,6 @@ Using that data we should then be able to go backwards and find the position of 
 Polarization can be added to the sources and we can test polarization analysis.
 The frequency band can be filtered, the time samples could be integrated, and the source emission can be limited in time as if it were a radar reflection.  And so on.
 With things like these applied to all sources and all antennas we can do many tests of radio and radar imaging.</p>
-<p>The information about the antenna and source are stored in two txt files. These files can be loaded using <code class="file docutils literal notranslate"><span class="pre">reading_files.py</span></code>.</p>
 </div>
 <div class="section" id="assumptions">
 <h3>Assumptions<a class="headerlink" href="#assumptions" title="Permalink to this headline">¶</a></h3>
@@ -72,7 +71,7 @@ With things like these applied to all sources and all antennas we can do many te
 &amp;a_3 = (100,50,0)\end{split}\]</div>
 <p>Please look at the figure:</p>
 <div class="figure align-center" id="id4">
-<a class="reference external image-reference" href="OriginalDocuments/referenceFrame.png"><img alt="The location of the sources and the antenna" src="_images/referenceFrame0.png" style="width: 411.6px; height: 466.40000000000003px;" /></a>
+<a class="reference external image-reference" href="OriginalDocuments/referenceFrame.png"><img alt="The location of the sources and the antenna" src="_images/referenceFrame01.png" style="width: 411.6px; height: 466.40000000000003px;" /></a>
 <p class="caption"><span class="caption-number">Fig. 1 </span><span class="caption-text">The red point is the source and green points are antennas. For every source-antenna set, the second reference frame (little black one) is rotated so that its z direction is along the ray path from the source to the antenna.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
 </div>
 <p>The origin is <span class="math notranslate nohighlight">\((0,0,0)\)</span>, so the antennas are pretty close to the origin.
@@ -173,25 +172,6 @@ Values of <span class="math notranslate nohighlight">\(x_A\)</span> and <span cl
 <p>Then the first part of dipole transmitter electric field can be added to the equation <a class="reference internal" href="#equation-eq-wave-form">(1)</a> as:</p>
 <div class="math notranslate nohighlight" id="equation-eq-dipole-wave-form">
 <span class="eqno">(6)<a class="headerlink" href="#equation-eq-dipole-wave-form" title="Permalink to this equation">¶</a></span>\[\mathbf{E}(\mathbf{r},t)= \mathbf{E_0} \frac{\zeta_0 I_0}{2 \pi r} \frac{\cos(\frac{\pi}{2}\cos(\theta))}{\sin(\theta)} \Re \left\{ e^{i(\mathbf{k}\cdot\mathbf{r}-\omega t )}\right\}\]</div>
-<div class="section" id="code">
-<h3>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="file-description">
-<h4>File description<a class="headerlink" href="#file-description" title="Permalink to this headline">¶</a></h4>
-<ul class="simple">
-<li><p><strong>reading_files.py</strong>: This file contains a program that takes file names of antenna and source information (03-tri-2.txt and source2.txt) and returns the information in a DataFarme format to be used in the main program.</p></li>
-<li><p><strong>03-tri_2.txt</strong>: antenna information</p></li>
-<li><p><strong>source2.txt</strong>: source information</p></li>
-<li><p><strong>parameters.py</strong>: This file contains some parameters</p></li>
-<li><p><strong>multi_source</strong>: Contains the main class and function to calculate the results for the waves received at the location of antenna from the source/s.</p></li>
-<li><p><strong>multi_source_received_waves</strong>: The main program file.</p></li>
-<li><p><strong>visualization</strong>: Include codes for plotting and visualization purposes.</p></li>
-</ul>
-</div>
-<div class="section" id="how-to-run">
-<h4>How to run?<a class="headerlink" href="#how-to-run" title="Permalink to this headline">¶</a></h4>
-<p>Please copy and past all files (mentioned in the file description) to a directory. Then, in that directory, you can run the main program by typing <cite>python multi_source_receieved_waves.py</cite>.</p>
-</div>
-</div>
 </div>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>

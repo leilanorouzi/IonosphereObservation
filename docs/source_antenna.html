@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>source_antenna &#8212; EM wave propagation for antenna 0.0.2 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="visualization class" href="visualization.html" />
+    <link rel="prev" title="source" href="source.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="source-antenna">
+<h1>source_antenna<a class="headerlink" href="#source-antenna" title="Permalink to this headline">¶</a></h1>
+<p>To define a dipole transmitter source not only depends ont the source characteristics but depends on the position of the receiver respect to the transmitter.
+Therefore, the source will be unique for each receiver antennas.</p>
+<p>The transmitter antennas were considered to be fix respect to the reference frame and similar for all sources.  Please refer to <a class="reference internal" href="info.html#dipole-plot"><span class="std std-ref">The geometry of the dipole transmitter and receiver antenna</span></a>.</p>
+<div class="figure align-center" id="id1">
+<img alt="Dipole sources and the antenna" src="_images/dipole_3d_clip.gif" />
+<p class="caption"><span class="caption-number">Fig. 3 </span><span class="caption-text">The geometry of the dipole transmitter and receiver antenna</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">argument</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>class: <code class="xref py py-class docutils literal notranslate"><span class="pre">Source</span></code></p></li>
+<li><p>class: <code class="xref py py-class docutils literal notranslate"><span class="pre">Antenna</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">attributes</dt>
+<dd class="field-even"><ul class="simple">
+<li><p>distance: DataFrame, the distance between source/s and antennas</p></li>
+<li><p>path_vec: DataFrame, the vectors of path from antenna to source/s</p></li>
+</ul>
+</dd>
+<dt class="field-odd">methods</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>multi_dist: to calculate the distance and the vector between each set of source-antenna. It calls dist function to calculate the distance.</p></li>
+<li><p>dipole_transmitter: It obtains the oscillation of far field located in the ionosphere.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="class">
+<dt id="source_antenna.SourceAntenna">
+<em class="property">class </em><code class="sig-prename descclassname">source_antenna.</code><code class="sig-name descname">SourceAntenna</code><span class="sig-paren">(</span><em class="sig-param">source_fn: str</em>, <em class="sig-param">radar_fn: str</em>, <em class="sig-param">dipole=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source_antenna.html#SourceAntenna"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#source_antenna.SourceAntenna" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="source.html#source.Source" title="source.Source"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.Source</span></code></a>, <a class="reference internal" href="antenna.html#antenna.Antenna" title="antenna.Antenna"><code class="xref py py-class docutils literal notranslate"><span class="pre">antenna.Antenna</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>radar_fn</strong> (<em>str</em>) – The path address of the input file of the antenna</p></li>
+<li><p><strong>source_fn</strong> (<em>str</em>) – The path address of the input file of the source</p></li>
+<li><p><strong>dipole</strong> (<em>bool</em>) – If the source is a dipole or not. default value is False</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="source_antenna.SourceAntenna.dipole_transmitter">
+<code class="sig-name descname">dipole_transmitter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/source_antenna.html#SourceAntenna.dipole_transmitter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#source_antenna.SourceAntenna.dipole_transmitter" title="Permalink to this definition">¶</a></dt>
+<dd><p>For a far feild a radiation pattern whose electric field of a half-wave dipole antenna  is given by
+<a class="reference external" href="https://en.wikipedia.org/wiki/Dipole_antenna#Short_dipole">https://en.wikipedia.org/wiki/Dipole_antenna#Short_dipole</a></p>
+<dl class="simple">
+<dt>we assume that all sources are a dipole which has an angle of theta between</dt><dd><p>the direction of dipole and the z direction.</p>
+</dd>
+</dl>
+<p>If you have another assumption you can add it to define theta for each source</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>phase: phase part of the generated wave related to the position of the antenna respect to the reference frame</p></li>
+<li><p>e_theta: Generated wave form</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="source_antenna.SourceAntenna.multi_dist">
+<code class="sig-name descname">multi_dist</code><span class="sig-paren">(</span><em class="sig-param">) -&gt; (&lt;class 'pandas.core.frame.DataFrame'&gt;</em>, <em class="sig-param">&lt;class 'pandas.core.frame.DataFrame'&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source_antenna.html#SourceAntenna.multi_dist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#source_antenna.SourceAntenna.multi_dist" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function calculates the distance between source/s and antenna/s and also returns a vector of
+source-antenna for every set of source-antenna.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>dist_arr: the distances from the source to the antenna</p></li>
+<li><dl class="simple">
+<dt>sa_vec:  the vector from source to the antenna in Cartesian coordinate system (x,y,z).</dt><dd><p>each elements are a list of vector components</p>
+</dd>
+</dl>
+</li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pandas.Dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">EM wave propagation for antenna</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="info.html">Project overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html">Main code</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Module codes</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="modules.html#link-to-modules">Link to modules</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">Module codes</a><ul>
+      <li>Previous: <a href="source.html" title="previous chapter">source</a></li>
+      <li>Next: <a href="visualization.html" title="next chapter">visualization class</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Leila Norouzi.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/source_antenna.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

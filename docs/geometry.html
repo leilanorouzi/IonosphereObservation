@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>geometry &#8212; EM wave propagation for antenna 0.0.2 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="antenna" href="antenna.html" />
+    <link rel="prev" title="reading_files module" href="reading_files.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="geometry">
+<h1>geometry<a class="headerlink" href="#geometry" title="Permalink to this headline">¶</a></h1>
+<p>The field vector is calculating in the reference frame system that the z direction is attached to the ray path.
+In order to obtain the received field vector at the antenna in the original frame, we need to rotate ray-path attached frame tot the original one.
+Please look at the picture:</p>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/referenceFrame0.png"><img alt="_images/referenceFrame0.png" src="_images/referenceFrame0.png" style="width: 514.5px; height: 583.0px;" /></a>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">methods</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>dist: to calculate the distance between two points in Cartesian coordinate</p></li>
+</ul>
+</dd>
+</dl>
+<span class="target" id="module-geometry"></span><dl class="function">
+<dt id="geometry.asCartesian">
+<code class="sig-prename descclassname">geometry.</code><code class="sig-name descname">asCartesian</code><span class="sig-paren">(</span><em class="sig-param">rthetaphi</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geometry.html#asCartesian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometry.asCartesian" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="geometry.asSpherical">
+<code class="sig-prename descclassname">geometry.</code><code class="sig-name descname">asSpherical</code><span class="sig-paren">(</span><em class="sig-param">xyz</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geometry.html#asSpherical"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometry.asSpherical" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="geometry.axis_angels">
+<code class="sig-prename descclassname">geometry.</code><code class="sig-name descname">axis_angels</code><span class="sig-paren">(</span><em class="sig-param">vec</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geometry.html#axis_angels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometry.axis_angels" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function calculates the angels between the vector and x, y  and z axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vec</strong> (<em>list</em>) – the vector that second frame is attached to</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>3 angles in rad.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float, float, float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="geometry.dist">
+<code class="sig-prename descclassname">geometry.</code><code class="sig-name descname">dist</code><span class="sig-paren">(</span><em class="sig-param">a: list</em>, <em class="sig-param">b: list</em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/geometry.html#dist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometry.dist" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function calculates the distance between two points</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>list</em>) – first location coordinates</p></li>
+<li><p><strong>b</strong> (<em>list</em>) – second location coordinates</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the distance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="geometry.projection">
+<code class="sig-prename descclassname">geometry.</code><code class="sig-name descname">projection</code><span class="sig-paren">(</span><em class="sig-param">a</em>, <em class="sig-param">b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geometry.html#projection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometry.projection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="geometry.rotate_refernce">
+<code class="sig-prename descclassname">geometry.</code><code class="sig-name descname">rotate_refernce</code><span class="sig-paren">(</span><em class="sig-param">vec</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geometry.html#rotate_refernce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometry.rotate_refernce" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vec</strong> (<em>list</em>) – the vector that second frame is attached to</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The reference frame rotation matrix.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="geometry.rotate_vec">
+<code class="sig-prename descclassname">geometry.</code><code class="sig-name descname">rotate_vec</code><span class="sig-paren">(</span><em class="sig-param">a</em>, <em class="sig-param">b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geometry.html#rotate_vec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometry.rotate_vec" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="geometry.vectors_angel">
+<code class="sig-prename descclassname">geometry.</code><code class="sig-name descname">vectors_angel</code><span class="sig-paren">(</span><em class="sig-param">a</em>, <em class="sig-param">b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geometry.html#vectors_angel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometry.vectors_angel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">EM wave propagation for antenna</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="info.html">Project overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html">Main code</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Module codes</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="modules.html#link-to-modules">Link to modules</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">Module codes</a><ul>
+      <li>Previous: <a href="reading_files.html" title="previous chapter">reading_files module</a></li>
+      <li>Next: <a href="antenna.html" title="next chapter">antenna</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Leila Norouzi.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/geometry.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
