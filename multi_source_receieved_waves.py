@@ -3,8 +3,11 @@ import warnings
 warnings.filterwarnings("default", category=DeprecationWarning)
 
 import numpy as np
-from multi_source import *
+# from multi_source import *
+import wave_propagation as wp
 from visualization import *
+# from source_antenna import *
+# from antenna import *
 import os
 import sys
 from tkinter import Tk
@@ -52,20 +55,20 @@ def main():
 
 
     # file name of the antenna
-    fnr = os.path.join(input_dir,'03-tri50_2.txt')
+    rfn = os.path.join(input_dir,'03-tri50_2.txt')
     # file name of the source
-    fns = os.path.join(input_dir, 'source2.txt')
+    sfn = os.path.join(input_dir, 'source2.txt')
 
     # -------------------------------------------------
-    # to call the class
-    ms = multi_source(radar_fn=fnr, source_fn=fns, dipole= True)
+    # makeing an instance of the class
+    wp = wp.WavePropagation(source_fn=sfn, radar_fn=rfn, dipole= True)
 
     #-------------------------------------------------
     # Visualization
     # Plotting the antennas and source/s location
 
     # Calling the visualization calss
-    vis = visualization(a=ms.antenna_location, s=ms.source_location)
+    vis = visualization(a=wp.antenna_location, s=wp.source_location)
     # To obtain the location of the antenna and source and plot them
     print("\x1b[1;31m Please check the plot window.\x1b[0m\n")
     vis.source_antenna_location()
@@ -75,21 +78,21 @@ def main():
 
     # To obtain waves at the antenna
     # run antenna_wave_received function to calculate the wave results as a data frame for all sources and antennas
-    w = ms.antennna_wave_received()
+    w = wp.antennna_wave_received()
     # To obtain the total result for each antenna, call the vector_superposition function.
     # It calculate received waves from all sources for each antenna in the original reference frame
     # and add their components up.
-    waves = ms.vector_superposition(w)
+    waves = wp.vector_superposition(w)
     # print('\x1b[1;31mReceived waves from each source at the antenna locations:\x1b[0m \n', waves)
 
     # To obtain the phase difference at the antenna call phase_diff function.
-    phase_difference = ms.phase_diff()
+    phase_difference = wp.phase_diff()
     print('\nPhase difference in degree:\n', np.degrees(phase_difference).round(3))
     print("\x1b[1;31m===============================================================================\n\n\x1b[0m")
-
-    # To obtain the voltage call voltage function
-    voltage = ms.voltage()
-
+    #
+    # # To obtain the voltage call voltage function
+    # voltage = ms.voltage()
+    #
     # -------------------------------------------------
     # The end
     print('FINISHED')

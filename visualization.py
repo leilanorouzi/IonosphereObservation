@@ -18,6 +18,13 @@ class visualization(object):
         :param a: Array, the location of antenna
         :param s: Array, The location of source/s
         :return: None
+
+        :Example:
+
+        >>> from visualization import *
+        >>> vec1 = np.array([[ 50. , 50. ,  0.],[ 50. ,100. ,  0.],[109. , 50. ,  0.]])
+        >>> vec2= np.array([[  5000.,  10000., 200000.],[-15000.,  10000. ,200000.]])
+        >>> source_antenna_location(vec1,vec2)
         '''
 
         x_antenna = []
@@ -71,12 +78,3 @@ class visualization(object):
         plt.show()  # to keep the picture until you close it
         plt.close(fig)  # Free the memory
 
-#
-# vec1 = np.array([[ 50. , 50. ,  0.],
-#         [ 50. ,100. ,  0.],
-#         [109. , 50. ,  0.]])
-#
-# vec2= np.array([ [  5000.,  10000., 200000.],
-#         [-15000.,  10000. ,200000.]])
-#
-# source_antenna_location(vec1,vec2)

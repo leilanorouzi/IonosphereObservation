@@ -7,6 +7,20 @@ import math
 import cmath
 
 
+def dist(a: list, b: list) -> float:
+    '''
+    This function calculates the distance between two points
+
+    :param a: first location coordinates
+    :type a: list
+    :param b: second location coordinates
+    :type b: list
+    :return: the distance
+    :rtype: float
+    '''
+    return np.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2 + (a[2] - b[2]) ** 2)
+
+
 def asCartesian(rthetaphi):
     # takes list rthetaphi (single coord)
     r = rthetaphi[0]
@@ -124,65 +138,3 @@ def rotate_refernce(vec):
     # rot = np.dot(rot_x,rot_y)
     return rot
 
-#
-#
-# # vec_ref = np.array([4950.0, 9950.0, 20000.0])*1
-# x = 20000
-# # vec_ref = np.array([x,x*np.tan(np.deg2rad(45)),x*np.tan(np.deg2rad(30))])*1
-# vec_ref = np.array([x,x,x*np.tan(np.deg2rad(30))])*-1
-# vec = [0,0,15000]
-#
-# vec_rot, ang = np.array(rotate_vec(vec_ref,vec), dtype=float)
-# # vec_rot = rotate_vec(vec,vec_ref)
-#
-# vec_rot2,ang2 = rotate_vec(vec_ref,vec_rot)
-#
-#
-# #
-# # # print('ROTATED\n',vec_rot)
-# #
-# # ----------------------------------------------------------
-# # Visulization
-# # Coordinates of the antenna and the source locations
-#
-# # Plotting in 3 dimensions
-# fig = plt.figure(figsize=(10, 10))
-# fig.suptitle('Please close the picture, when you finished', fontsize=20, color='brown')
-# ax = plt.axes(projection='3d')
-#
-# plt.title('The overview of the antenna and source coordinates\n\n', fontsize=14)
-# ax.scatter3D( vec_ref[0],vec_ref[1],vec_ref[2],
-#              color='g'
-#              )
-# ax.plot(
-#     [vec_ref[0], 0],
-#     [vec_ref[1], 0],
-#     [vec_ref[2], 0],
-#     color='gold')
-#
-# ax.plot(
-#     [vec[0], 0],
-#     [vec[1], 0],
-#     [vec[2]+10000, 0],
-#     color='r')
-#
-# ax.plot(
-#     [vec_rot[0], 0],
-#     [vec_rot[1], 0],
-#     [vec_rot[2], 0],
-#     color='g')
-#
-# ax.plot(
-#     [vec_rot2[0], 0],
-#     [vec_rot2[1], 0],
-#     [vec_rot2[2], 0],
-#     color='b')
-#
-# ax.text(vec_ref[0] - 500, vec_ref[1], vec_ref[2] + 1000, 'The source\n', size=14, zorder=1,
-#         color='r')
-# ax.set_xlabel('X ')
-# ax.set_ylabel('Y ')
-# ax.set_zlabel('Z ')
-# plt.show()  # to keep the picture until you close it
-# plt.close(fig)  # Free the memory
-#
