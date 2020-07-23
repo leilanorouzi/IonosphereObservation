@@ -1,7 +1,4 @@
-'''
 
-
-'''
 
 from reading_files import *
 from parameters import *
