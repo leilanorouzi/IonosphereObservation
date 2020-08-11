@@ -38,6 +38,7 @@ def select_directory():
 
 
 def main():
+
     '''
     The main code to run other modules and plot the graphics.
 
@@ -61,14 +62,14 @@ def main():
 
     # -------------------------------------------------
     # makeing an instance of the class
-    wp = wp.WavePropagation(source_fn=sfn, radar_fn=rfn, dipole= True)
+    w_p = wp.WavePropagation(source_fn=sfn, radar_fn=rfn, dipole= True)
 
     #-------------------------------------------------
     # Visualization
     # Plotting the antennas and source/s location
 
     # Calling the visualization calss
-    vis = visualization(a=wp.antenna_location, s=wp.source_location)
+    vis = visualization(a=w_p.antenna_location, s=w_p.source_location)
     # To obtain the location of the antenna and source and plot them
     print("\x1b[1;31m Please check the plot window.\x1b[0m\n")
     vis.source_antenna_location()
@@ -78,15 +79,15 @@ def main():
 
     # To obtain waves at the antenna
     # run antenna_wave_received function to calculate the wave results as a data frame for all sources and antennas
-    w = wp.antennna_wave_received()
+    w = w_p.antennna_wave_received()
     # To obtain the total result for each antenna, call the vector_superposition function.
     # It calculate received waves from all sources for each antenna in the original reference frame
     # and add their components up.
-    waves = wp.vector_superposition(w)
+    waves = w_p.vector_superposition(w)
     # print('\x1b[1;31mReceived waves from each source at the antenna locations:\x1b[0m \n', waves)
 
     # To obtain the phase difference at the antenna call phase_diff function.
-    phase_difference = wp.phase_diff()
+    phase_difference = w_p.phase_diff()
     print('\nPhase difference in degree:\n', np.degrees(phase_difference).round(3))
     print("\x1b[1;31m===============================================================================\n\n\x1b[0m")
     #

@@ -39,29 +39,3 @@ def read_line(s:str,column_names:list)->pd.Series:
     # convert the new line to a data farme
     l = pd.Series(l, index=column_names)
     return l
-
-# def read_ionosphere(filename):
-#     # the name of the columns
-#     column_names = ['Height','N_e','Ne_to_NmF2','hmF2','hmF1','hmE','hmD','foF2','foF1','foE','foD']
-#
-#     # To open the file
-#     read = open(filename, 'r')
-#     i = 0   # The number of the row of the file
-#
-#     # An empty data farme to be filled with the antenna values regarding to the column names
-#     iono_df = pd.DataFrame(columns = column_names)
-#
-#     for line in read:
-#         i+=1
-#         if 43< i  :  # The lines related to the antenna location
-#             #extracting values from the line
-#             newline = read_line(line,column_names)
-#
-#             #To fill the data frame
-#             iono_df = iono_df.append(newline,ignore_index=True)
-#
-#
-#     read.close()
-#     print('\x1b[1;33mIonosphere variables values:\x1b[0m \n', iono_df)
-#
-#     return iono_df

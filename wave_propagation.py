@@ -3,6 +3,7 @@ import pandas as pd
 from parameters import *
 import geometry
 from source_antenna import SourceAntenna
+import medium
 import cmath
 
 class WavePropagation(SourceAntenna):
@@ -38,7 +39,15 @@ class WavePropagation(SourceAntenna):
         :type dipole: Boolean
         '''
 
+        # Feeding inputs to the SourceAntenna calls to make an object of the source and the antenna
         SourceAntenna.__init__(self,source_fn, radar_fn, dipole)
+
+        filename_iono = 'Data/Input/ionospheric_parameters.txt'
+        filename_mag = 'Data/Input/igrfwmmData.json'
+
+
+        # Feeding inputs to the medium class to get medium properties
+        medium.Medium.__init__(self, filename_iono= filename_iono, filename_mag = filename_mag, column_names=self.s_columns, num=self.source_n)
 
         # In free space it is equal to 1 otherwise it is a matrix
 
@@ -229,7 +238,3 @@ class WavePropagation(SourceAntenna):
         print('\x1b[1;34mVoltages at antenna:\n\x1b[0m', total_voltage)
         return total_voltage
 
-
-
-
-pass

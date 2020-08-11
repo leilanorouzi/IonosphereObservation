@@ -6,6 +6,24 @@ import numpy as np
 import math
 import cmath
 
+def vec_mag(a:list) -> list:
+    '''
+    Takes a vector as a list and calculates the magnitude of the vector
+    :param a: the list of components of a vector
+    :return: the magnitude of the vector
+    '''
+    return cmath.sqrt (np.dot (a, a))
+
+def unit_vec(a:list)-> list:
+    '''
+    Take a vector as a list and calculates the unit vector of original vector.
+    :param a: the list of components of a vector
+    :return: unit vector
+    '''
+    magnitude = vec_mag(a)
+    res = [i/magnitude for i in a]
+    return res
+
 
 def dist(a: list, b: list) -> float:
     '''
@@ -38,7 +56,7 @@ def asSpherical(xyz):
     x = xyz[0]
     y = xyz[1]
     z = xyz[2]
-    r = cmath.sqrt(np.dot(xyz, xyz))
+    r = vec_mag(xyz)
     theta = cmath.acos(z / r)
     # phi     =  np.arctan2(y,x)
     phi = cmath.atan(y / x)
@@ -70,7 +88,7 @@ def rotate_vec(a, b):
 
 
 def vectors_angel(a, b):
-    return cmath.asin(np.dot(a, b) / (cmath.sqrt(np.dot(a, a)) * cmath.sqrt(np.dot(b, b))))
+    return cmath.asin(np.dot(a, b) / (vec_mag(a) * vec_mag(b)))
 
 
 def projection(a, b):
