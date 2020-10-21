@@ -51,9 +51,7 @@ def main():
     # 2- or you can type it in here directly.
     # If you would like to use this method please, comment above line and uncomment following line.
     sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-    input_dir = "../IonosphereObservation/Data/Input/"
-
-
+    input_dir = "../IonosphereObservation/Data/Input/" #./data/
 
     # file name of the antenna
     rfn = os.path.join(input_dir,'03-tri50_2.txt')
